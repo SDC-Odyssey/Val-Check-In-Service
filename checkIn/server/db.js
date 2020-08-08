@@ -1,2 +1,68 @@
-const {Sequelize, Model, DataTypes} = require('sequelize');
-const sequelize = new Sequelize ()
+const {Sequelize, INTEGER, DECIMAL, DATEONLY, BOOLEAN} = require('sequelize');
+const sequelize = new Sequelize ('check_in', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql'
+})
+
+const Pricing = sequelize.define('Pricing', {
+    id: {
+        type: INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    base_price: {
+        type: DECIMAL(18,2),
+        allowNull: false,
+    },
+    cleaning_fee: {
+        type: DECIMAL(18,2),
+        allowNull: false,
+        defaultValue: 0
+    },
+    occupancy_fee: {
+        type: DECIMAL(18,2),
+        allowNull: false,
+        defaultValue: 0
+    },
+    cost_additional_person: {
+        type: DECIMAL(18,2),
+        allowNull: false,
+        defaultValue: 0
+    },
+    service_fee: {
+        type: INTEGER,
+        allowNull: false
+    },
+    minimum_nights: {
+        type: INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    }
+}, {timestamps: false})
+
+const Availability = sequelize.define('Availability', {
+    id: {
+        type: INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    date: {
+        type: DATEONLY,
+        allowNull: false,
+    },
+    unitId: {
+        type: INTEGER,
+        references: {
+            model: Pricing,
+        }
+    },
+    available: {
+        type: BOOLEAN,
+        allowNull: false
+    }
+}, {timestamps: false})
+
+sequelize.sync();
+
+exports.Pricing = Pricing;
+exports.Availability = Availability;
