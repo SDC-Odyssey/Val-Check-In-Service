@@ -4,7 +4,7 @@ const sequelize = new Sequelize ('check_in', 'root', '', {
     dialect: 'mysql'
 })
 
-const Pricing = sequelize.define('Pricing', {
+const Pricing = sequelize.define('pricing', {
     id: {
         type: INTEGER,
         primaryKey: true,
@@ -40,7 +40,7 @@ const Pricing = sequelize.define('Pricing', {
     }
 }, {timestamps: false})
 
-const Availability = sequelize.define('Availability', {
+const Availability = sequelize.define('availability', {
     id: {
         type: INTEGER,
         primaryKey: true,
@@ -62,7 +62,7 @@ const Availability = sequelize.define('Availability', {
     }
 }, {timestamps: false})
 
-sequelize.sync();
+sequelize.sync({alter: true});
 
 exports.Pricing = Pricing;
 exports.Availability = Availability;
