@@ -1,8 +1,8 @@
 const {Sequelize, INTEGER, DECIMAL, DATEONLY, BOOLEAN} = require('sequelize');
 const sequelize = new Sequelize ('check_in', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql'
-})
+  host: 'localhost',
+  dialect: 'mysql',
+});
 
 const Pricing = sequelize.define('pricing', {
     id: {

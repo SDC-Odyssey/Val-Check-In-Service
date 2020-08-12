@@ -28,6 +28,13 @@ exports.createRandomCheckInData = function () {
 };
 
 exports.createAvailabilityDates = function () {
-  const newDates = [];
-  
+  // const newDates = [];
+
+  for (let i = 1; i < 101; i += 1) {
+    for (let x = 1; x < 365; x += 1) {
+      const today = new Date();
+      console.log(today);
+      // const roomId = i;
+    }
+  }
 };
