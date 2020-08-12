@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 exports.createRandomCheckInData = function () {
   const newRecords = [];
   for (let i = 1; i < 101; i += 1) {
@@ -28,13 +30,23 @@ exports.createRandomCheckInData = function () {
 };
 
 exports.createAvailabilityDates = function () {
-  // const newDates = [];
-
+  const newRecords = [];
   for (let i = 1; i < 101; i += 1) {
+    const today = moment();
     for (let x = 1; x < 365; x += 1) {
-      const today = new Date();
-      console.log(today);
-      // const roomId = i;
+      const newDate = today.add(1, 'days').format('YYYY-MM-DD');
+      const roomId = i;
+
+      newRecords.push({
+        id: x * i,
+        new_date: newDate,
+        room_id: roomId,
+        available: true,
+      });
     }
   }
+  return newRecords;
 };
+
+// exports.createRandomCheckInData();
+// exports.createAvailabilityDates();
