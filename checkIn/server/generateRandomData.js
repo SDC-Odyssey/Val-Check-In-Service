@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-exports.createRandomCheckInData = function () {
+exports.generateCheckIn = function createRandomCheckInData() {
   const newRecords = [];
   for (let i = 1; i < 101; i += 1) {
     const id = i;
@@ -29,7 +29,7 @@ exports.createRandomCheckInData = function () {
   return newRecords;
 };
 
-exports.createAvailabilityDates = function () {
+exports.generateAvailability = function createAvailabilityDates() {
   const newRecords = [];
   for (let i = 1; i < 101; i += 1) {
     const today = moment();

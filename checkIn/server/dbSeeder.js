@@ -1,6 +1,17 @@
-const { Sequelize, INTEGER, DECIMAL, DATEONLY, BOOLEAN } = require('sequelize');
+const {
+  Sequelize,
+  INTEGER,
+  DECIMAL,
+  DATEONLY,
+  BOOLEAN,
+} = require('sequelize');
 
-const init = async function() {
+const {
+  generateCheckIn,
+  generateAvailability,
+} = require('./generateRandomData');
+
+const init = async function initializeNewDatabase() {
   const newConnection = new Sequelize('', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
@@ -76,6 +87,12 @@ const init = async function() {
   }, {
     timestamps: false,
   });
+
+  const newCheckInData = generateCheckIn();
+  const newAvailabilityData = generateAvailability();
+
+  console.log(newCheckInData);
+  console.log(newAvailabilityData);
 };
 
 init();
