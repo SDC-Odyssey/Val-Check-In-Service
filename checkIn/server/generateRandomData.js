@@ -38,7 +38,7 @@ exports.generateAvailability = function createAvailabilityDates() {
       const roomId = i;
 
       newRecords.push({
-        id: x + (365 * i),
+        id: x + (365 * (i - 1)),
         date: newDate,
         room_id: roomId,
         available: true,
