@@ -7,7 +7,7 @@ const {
 } = require('sequelize');
 
 const {
-  generateCheckIn,
+  generatePricing,
   generateAvailability,
 } = require('./generateRandomData');
 
@@ -26,7 +26,7 @@ const init = async function initializeNewDatabase() {
 
   const queryInterface = sequelize.getQueryInterface();
 
-  await queryInterface.createTable('pricing', {
+  await queryInterface.createTable('pricings', {
     id: {
       type: INTEGER,
       primaryKey: true,
@@ -64,7 +64,7 @@ const init = async function initializeNewDatabase() {
     timestamps: false,
   });
 
-  await queryInterface.createTable('availability', {
+  await queryInterface.createTable('availabilities', {
     id: {
       type: INTEGER,
       primaryKey: true,
@@ -74,10 +74,10 @@ const init = async function initializeNewDatabase() {
       type: DATEONLY,
       allowNull: false,
     },
-    unitId: {
+    room_id: {
       type: INTEGER,
       references: {
-        model: 'pricing',
+        model: 'pricings',
       },
     },
     available: {
@@ -88,11 +88,16 @@ const init = async function initializeNewDatabase() {
     timestamps: false,
   });
 
-  const newCheckInData = generateCheckIn();
+  const newPricingData = generatePricing();
   const newAvailabilityData = generateAvailability();
 
-  console.log(newCheckInData);
-  console.log(newAvailabilityData);
+  await queryInterface.bulkInsert('pricings', newPricingData);
+
+  try {
+    await queryInterface.bulkInsert('availabilities', newAvailabilityData);
+  } catch {
+    console.log('insertion into availability table failed');
+  }
 };
 
 init();

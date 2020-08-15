@@ -1,0 +1,1 @@
+This project uses AirBnB's style guide referenced here: https://github.com/airbnb/javascript#types
