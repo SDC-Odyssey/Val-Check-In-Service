@@ -77,3 +77,4 @@ sequelize.sync({});
 
 exports.Pricing = Pricing;
 exports.Availability = Availability;
+exports.sequelize = sequelize;
