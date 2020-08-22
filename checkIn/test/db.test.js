@@ -29,6 +29,7 @@ describe('Check-in database', () => {
   sequelize.close();
 });
 
+//unit tests for data generation file
 describe('Random data generator', () => {
   it('Generates a pricing array with an id, base price, and service fee', () => {
     const randomPricing = generatePricing();
@@ -38,6 +39,7 @@ describe('Random data generator', () => {
     expect(randomPricing[0].base_price).toBeTruthy();
     expect(randomPricing[0].service_fee).toBeTruthy();
   });
+
   it('Generates an availability array with an id, room_id, date, and available boolean', () => {
     const randomAvailability = generateAvailability();
     expect(Array.isArray(randomAvailability)).toBe(true);
