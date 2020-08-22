@@ -2,7 +2,7 @@ import React from 'react';
 // import ReactDOM from 'react-dom';
 
 const Test = function TestForReactClass() {
-  return (<h5>This application is now live!</h5>);
+  return (<h3>This application is now live!</h3>);
 };
 
 export default Test;

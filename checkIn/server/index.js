@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const {
   Pricing,
@@ -13,7 +14,9 @@ app.listen('3000', () => {
   console.log('Server is listening at port 3000.');
 });
 
-app.use(express.static('../client/public'));
+app.use(express.static(path.join(__dirname, '..', 'client/public'), {
+  index: 'index.html',
+}));
 
 app.get('/pricing/:room_id', async (req, res) => {
   const id = req.params.room_id;
