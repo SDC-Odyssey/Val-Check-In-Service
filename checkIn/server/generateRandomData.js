@@ -1,6 +1,6 @@
-const moment = require('moment')
+const moment = require('moment');
 
-exports.createRandomCheckInData = function () {
+exports.generatePricing = function createRandomPricingData() {
   const newRecords = [];
   for (let i = 1; i < 101; i += 1) {
     const id = i;
@@ -29,17 +29,17 @@ exports.createRandomCheckInData = function () {
   return newRecords;
 };
 
-exports.createAvailabilityDates = function () {
+exports.generateAvailability = function createAvailabilityDates() {
   const newRecords = [];
   for (let i = 1; i < 101; i += 1) {
     const today = moment();
-    for (let x = 1; x < 365; x += 1) {
+    for (let x = 1; x < 366; x += 1) {
       const newDate = today.add(1, 'days').format('YYYY-MM-DD');
       const roomId = i;
 
       newRecords.push({
-        id: x * i,
-        new_date: newDate,
+        id: x + (365 * (i - 1)),
+        date: newDate,
         room_id: roomId,
         available: true,
       });
