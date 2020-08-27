@@ -10,8 +10,8 @@ const app = express();
 
 app.use(cors());
 
-app.listen('3000', () => {
-  console.log('Server is listening at port 3000.');
+app.listen('3003', () => {
+  console.log('Server is listening at port 3003.');
 });
 
 app.use(express.static(path.join(__dirname, '..', 'client/public'), {
@@ -21,16 +21,18 @@ app.use(express.static(path.join(__dirname, '..', 'client/public'), {
 app.get('/pricing/:room_id', async (req, res) => {
   const id = req.params.room_id;
   try {
-    const pricingData = await Pricing.findOne({
+    const pricingDataObject = await Pricing.findOne({
       where: {
         id,
       },
       raw: true,
     });
-    console.log(pricingData);
+    const pricing = JSON.stringify(pricingDataObject);
+
+    console.log(pricing);
 
     res.status(200);
-    res.send(pricingData);
+    res.send(pricing);
     res.end();
   } catch {
     console.log('Issue with retrieving pricing information from the database');
@@ -42,7 +44,7 @@ app.get('/pricing/:room_id', async (req, res) => {
 app.get('/availability/:room_id', async (req, res) => {
   const id = req.params.room_id;
   try {
-    const availabilityData = await Availability.findAll({
+    const availabilityDataObject = await Availability.findAll({
       where: {
         room_id: id,
         // date:
@@ -52,9 +54,12 @@ app.get('/availability/:room_id', async (req, res) => {
       ],
       raw: true,
     });
+    const availability = JSON.stringify(availabilityDataObject);
+
+    console.log(availability);
 
     res.status(200);
-    res.send(availabilityData);
+    res.send(availability);
   } catch {
     console.log('Issue with retrieving room availability from database');
     res.sendStatus(404);
