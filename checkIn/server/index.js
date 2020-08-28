@@ -29,8 +29,6 @@ app.get('/pricing/:room_id', async (req, res) => {
     });
     const pricing = JSON.stringify(pricingDataObject);
 
-    console.log(pricing);
-
     res.status(200);
     res.send(pricing);
     res.end();
@@ -55,8 +53,6 @@ app.get('/availability/:room_id', async (req, res) => {
       raw: true,
     });
     const availability = JSON.stringify(availabilityDataObject);
-
-    console.log(availability);
 
     res.status(200);
     res.send(availability);

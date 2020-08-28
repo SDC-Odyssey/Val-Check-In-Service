@@ -4,7 +4,7 @@ const cors = require('cors');
 const axios = require('axios');
 
 const app = express();
-// const router = express.Router();
+const proxy = require('express-http-proxy');
 
 app.use(cors());
 
@@ -16,25 +16,40 @@ app.use(express.static(path.join(__dirname, '/proxyClient'), {
   index: 'index.html',
 }));
 
-app.get('/:room_id', async (req, res) => {
-  const roomId = req.params.room_id;
+app.use('/proxy', proxy('www.google.com'));
 
-  // try {
-  const pricingResponseObject = await axios.get(`http://127.0.0.1:3003/pricing/${roomId}`);
-  const pricingResponseString = JSON.stringify(pricingResponseObject.data);
+// app.get('/', (req, res) => {
+//   res.status('200');
+//   res.send('hello, world');
+//   res.end();
+// });
 
-  const availabilityResponseObject = await axios.get(`http://127.0.0.1:3003/availability/${roomId}`);
-  const availabilityResponseString = JSON.stringify(availabilityResponseObject.data);
+app.get('/pricing/:room_id', async (req, res) => {
+  try {
+    const roomId = req.params.room_id;
+    const pricingResponseObject = await axios.get(`http://127.0.0.1:3003/pricing/${roomId}`);
+    const pricingResponseString = JSON.stringify(pricingResponseObject.data);
 
-  const responseData = {
-    pricing: pricingResponseString,
-    availability: availabilityResponseString,
-  };
-  res.status(200);
-  res.send(responseData);
-  res.end();
-  // } catch {
-  //   res.sendStatus(404);
-  //   res.end();
-  // }
+    res.status(200);
+    res.send(pricingResponseString);
+    res.end();
+  } catch {
+    res.sendStatus(404);
+    res.end();
+  }
+});
+
+app.get('/availability/:room_id', async (req, res) => {
+  try {
+    const roomId = req.params.room_id;
+    const availabilityResponseObject = await axios.get(`http://127.0.0.1:3003/availability/${roomId}`);
+    const availabilityResponseString = JSON.stringify(availabilityResponseObject.data);
+
+    res.status(200);
+    res.send(availabilityResponseString);
+    res.end();
+  } catch {
+    res.sendStatus(404);
+    res.end();
+  }
 });

@@ -7,19 +7,18 @@ import Test from './components/firstModule';
 
 const init = async function initializeApp() {
   const url = new URL(window.location);
-  const endpoints = url.pathname.split('/');
+  const idSplit = url.search.split('id=');
   // This should send a request to the proxy server
   // The proxy server will then send a request to all other endpoints
-  let roomId;
-  if (endpoints[1] === '') {
-    roomId = 1;
-  } else {
-    roomId = endpoints[1];
+  let id = idSplit[1];
+  if (!id) {
+    id = 1;
   }
-  const pricingInformation = await axios.get(`http://127.0.0.1:3003/pricing/${roomId}`);
-  const availabilityInformation = await axios.get(`http://127.0.0.1:3003/availability/${roomId}`);
+  console.log(id);
+  const pricingInformation = await axios.get(`http://127.0.0.1:3000/pricing/${id}`);
+  const availabilityInformation = await axios.get(`http://127.0.0.1:3000/availability/${id}`);
   console.log(pricingInformation.data);
-  console.log(availabilityInformation.data);
+  console.log(availabilityInformation);
   ReactDOM.render(<Test pricing={pricingInformation} availability={availabilityInformation} />, document.getElementById('app'));
 };
 
