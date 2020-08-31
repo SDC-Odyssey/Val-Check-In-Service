@@ -33,7 +33,7 @@ const init = async function initializeNewDatabase() {
       autoIncrement: true,
     },
     base_price: {
-      type: DECIMAL(18, 2),
+      type: INTEGER,
       allowNull: false,
     },
     cleaning_fee: {
