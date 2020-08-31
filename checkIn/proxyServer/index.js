@@ -4,7 +4,6 @@ const cors = require('cors');
 const axios = require('axios');
 
 const app = express();
-const proxy = require('express-http-proxy');
 
 app.use(cors());
 
@@ -15,8 +14,6 @@ app.listen('3000', () => {
 app.use(express.static(path.join(__dirname, '/proxyClient'), {
   index: 'index.html',
 }));
-
-app.use('/proxy', proxy('www.google.com'));
 
 // app.get('/', (req, res) => {
 //   res.status('200');
