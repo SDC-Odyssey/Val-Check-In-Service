@@ -1,17 +1,33 @@
 import React from 'react';
+import Fields from './fields';
 // import ReactDOM from 'react-dom';
 
-const CheckIn = function CheckInModule(props) {
-  console.log({availability, pricing});
-  const {availability, pricing} = props;
-  const {base_price} = pricing;
-  return (
-    <div>
-      <h3>${props.pricing.base_price}
-        <span>    󰀄 4.95 (386)</span>
-      </h3>
-    </div>
-  );
-};
+class CheckIn extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayDetailedPricing: false,
+      buttonAction: 'Check availability',
+    };
+  }
+
+  render() {
+    const { availability, pricing } = this.props;
+    const { displayDetailedPricing, buttonAction } = this.state;
+    const { base_price } = pricing;
+    return (
+      <div>
+        <h3>${ base_price }
+          <span>    󰀄 4.95 (386)</span>
+        </h3>
+        <div>
+          <Fields />
+          <div> { buttonAction } </div>
+        </div>
+        <div> Pricing Detail Component</div>
+      </div>
+    );
+  }
+}
 
 export default CheckIn;

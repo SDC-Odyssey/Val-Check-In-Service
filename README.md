@@ -1,4 +1,4 @@
 # peter-waterBnB
-Check In + Reviews module for WaterBnB
+Check In module for WaterBnB
 
-This repository will contain two separate modules for waterBnB: Check-In and Reviews. 
+This repository contains the 1 module -- the check-in module for WaterBnB
