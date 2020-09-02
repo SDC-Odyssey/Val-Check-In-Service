@@ -16,16 +16,18 @@ class Fields extends React.Component {
     return (
       <div id={styles.fieldGrid}>
         {/* <form> */}
-        <div id={styles.checkIn}>
+        <div id={styles.checkIn} className={styles.fields}>
           <p>CHECK-IN</p>
           <p>{checkIn}</p>
         </div>
-        <div id={styles.checkOut}>
+        <div id={styles.checkOut} className={styles.fields}>
           <p>CHECKOUT</p>
           <p>{checkOut}</p>
         </div>
-        <div id={styles.guests}>GUESTS</div>
-        <div>{guests}</div>
+        <div id={styles.guests} className={styles.fields}>
+          <p>GUESTS</p>
+          <p>{guests}</p>
+        </div>
         {/* </form> */}
       </div>
     );
