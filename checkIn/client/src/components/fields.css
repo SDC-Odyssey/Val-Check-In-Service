@@ -1,0 +1,20 @@
+#fieldGrid {
+  display: grid;
+  border: 2px solid royalblue;
+  text-align: left;
+}
+
+#checkIn {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+#checkOut {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+#guests {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './firstModule.css';
 import Fields from './fields';
 // import ReactDOM from 'react-dom';
 
@@ -16,7 +17,7 @@ class CheckIn extends React.Component {
     const { displayDetailedPricing, buttonAction } = this.state;
     const { base_price } = pricing;
     return (
-      <div>
+      <div id={styles.checkInService}>
         <h3>${ base_price }
           <span>    󰀄 4.95 (386)</span>
         </h3>

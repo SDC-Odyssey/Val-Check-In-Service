@@ -1,10 +1,6 @@
-/* #checkIn {
+#checkInService {
   text-align: right;
   border: 2px solid #ff395b;
   padding-right: 5px;
+  font-size: 20px;
 }
-
-#fieldGrid {
-  display: grid;
-  border: royalblue;
-} */

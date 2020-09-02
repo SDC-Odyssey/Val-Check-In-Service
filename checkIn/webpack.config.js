@@ -5,6 +5,16 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/i,
+        use: ['style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          }],
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -14,7 +24,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.css'],
   },
   output: {
     filename: 'bundle.js',
