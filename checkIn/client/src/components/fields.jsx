@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './fields.css';
 
 class Fields extends React.Component {
   constructor(props) {
@@ -11,20 +12,23 @@ class Fields extends React.Component {
   }
 
   render() {
-    const {checkIn, checkOut, guests} = this.state;
+    const { checkIn, checkOut, guests } = this.state;
     return (
-      <div id="fieldGrid">
-        <form>
-          <div id="checkIn">
-            <p>CHECK-IN</p>
-            <p>{checkIn}</p>
-          </div>
-          <div id="checkOut">
-            <p>CHECKOUT</p>
-            <p>{checkIn}</p>
-          </div>
-          <div id="guests">GUESTS</div>
-        </form>
+      <div id={styles.fieldGrid}>
+        {/* <form> */}
+        <div id={styles.checkIn} className={styles.fields}>
+          <p>CHECK-IN</p>
+          <p>{checkIn}</p>
+        </div>
+        <div id={styles.checkOut} className={styles.fields}>
+          <p>CHECKOUT</p>
+          <p>{checkOut}</p>
+        </div>
+        <div id={styles.guests} className={styles.fields}>
+          <p>GUESTS</p>
+          <p>{guests}</p>
+        </div>
+        {/* </form> */}
       </div>
     );
   }
