@@ -10,8 +10,8 @@ const app = express();
 
 app.use(cors());
 
-app.listen('3003', () => {
-  console.log('Server is listening at port 3003.');
+app.listen('80', () => {
+  console.log('Server is listening at port 80.');
 });
 
 app.use(express.static(path.join(__dirname, '..', 'client/public'), {
