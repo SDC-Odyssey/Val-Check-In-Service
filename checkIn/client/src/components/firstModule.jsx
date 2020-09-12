@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './firstModule.css';
 import Fields from './fields';
+import Pricings from './pricings';
 // import ReactDOM from 'react-dom';
 
 class CheckIn extends React.Component {
@@ -16,6 +17,7 @@ class CheckIn extends React.Component {
     const { availability, pricing } = this.props;
     const { displayDetailedPricing, buttonAction } = this.state;
     const { base_price } = pricing;
+    console.log(pricing);
     return (
       <div id={styles.checkInService}>
         <h3>${ base_price }
@@ -25,7 +27,8 @@ class CheckIn extends React.Component {
           <Fields />
           <div> { buttonAction } </div>
         </div>
-        <div> Pricing Detail Component</div>
+        {/* The number of nights is hardcoded temporarily */}
+        <Pricings pricing={pricing} numberOfNights={5} />
       </div>
     );
   }
