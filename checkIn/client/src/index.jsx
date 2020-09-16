@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import CheckIn from './components/firstModule';
+import CheckIn from './components/CheckIn';
 
 const init = async function initializeApp() {
   const url = new URL(window.location);
@@ -14,7 +14,6 @@ const init = async function initializeApp() {
   if (!id) {
     id = 1;
   }
-  console.log(id);
   const pricingInformation = await axios.get(`http://127.0.0.1:3000/pricing/${id}`);
   const availabilityInformation = await axios.get(`http://127.0.0.1:3000/availability/${id}`);
   ReactDOM.render(<CheckIn pricing={pricingInformation.data} availability={availabilityInformation.data} />, document.getElementById('checkIn'));

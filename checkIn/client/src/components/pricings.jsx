@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './pricings.css';
+import styles from './Pricings.css';
 
 class Pricings extends React.Component {
   constructor(props) {
@@ -22,7 +22,10 @@ class Pricings extends React.Component {
     return (
       <div id={styles.pricing}>
         <p>
-          ${base_price} x {numberOfNights} nights
+          ${base_price}
+          x
+          {numberOfNights}
+          nights
         </p>
 
         {/* After documenting the base price,
