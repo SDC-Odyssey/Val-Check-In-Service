@@ -21,9 +21,9 @@ class GuestForm extends React.Component {
         <div className={styles.guestFields}>
           <p className={styles.guestType} id={styles.adults}>Adults</p>
           <div className={styles.guestCount}>
-            <p className={`${styles.decrement} ${styles.guestCountAdjuster}`}> – </p>
+            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'adults'); }}> – </button>
             <p>{adults}</p>
-            <p className={`${styles.increment} ${styles.guestCountAdjuster}`}> + </p>
+            <button type="button" className={`increment ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'adults'); }}> + </button>
           </div>
         </div>
         <div className={styles.guestFields}>
@@ -32,9 +32,9 @@ class GuestForm extends React.Component {
             <p className={styles.ageGroups}> Ages 2-12</p>
           </div>
           <div className={styles.guestCount}>
-            <p className={`${styles.decrement} ${styles.guestCountAdjuster}`}> – </p>
+            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'children'); }}> – </button>
             <p>{children}</p>
-            <p className={`${styles.increment} ${styles.guestCountAdjuster}`}> + </p>
+            <button type="button" className={`increment ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'children'); }}> + </button>
           </div>
         </div>
         <div className={styles.guestFields}>
