@@ -1,12 +1,16 @@
 #fieldGrid {
   display: grid;
-  border: 2px solid gray;
+  border: 1px solid rgb(190, 190, 190);
   text-align: left;
   border-radius: 5%;
   width: 90%;
   margin: 0 auto;
   font-size: 12px;
   grid-template-rows: 75px 75px;
+}
+
+#fieldGrid:hover {
+  cursor: pointer;
 }
 
 .fields {
@@ -16,19 +20,19 @@
 #checkIn {
   grid-column-start: 1;
   grid-column-end: 2;
-  border-right: 1px solid gray;
-  border-bottom: 1px solid gray;
+  border-right: 1px solid rgb(190, 190, 190);
+  border-bottom: 1px solid rgb(190, 190, 190);
 }
 
 #checkOut {
   grid-column-start: 2;
   grid-column-end: 3;
-  border-left: 1px solid gray;
-  border-bottom: 1px solid gray;
+  /* border-left: 1px solid rgb(190, 190, 190); */
+  border-bottom: 1px solid rgb(190, 190, 190);
 }
 
 #guests {
   grid-column-start: 1;
   grid-column-end: 3;
-  border-top: 1px solid gray;
+  /* border-top: 1px solid rgb(190, 190, 190); */
 }
