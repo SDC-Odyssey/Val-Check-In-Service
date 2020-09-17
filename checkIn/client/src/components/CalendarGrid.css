@@ -1,0 +1,31 @@
+#calendarGrid {
+  align-items: center;
+  justify-content: center;
+}
+
+#dateScroller {
+  display: inline-flex;
+}
+
+.calendarHeadDay {
+  width: 25px;
+  height: 25px;
+}
+
+.calendarDay {
+  width: 25px;
+  height: 25px;
+}
+
+.month {
+  margin: 30px;
+}
+
+#scrollLeft {
+  text-align: left;
+}
+
+.calendarCore {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}

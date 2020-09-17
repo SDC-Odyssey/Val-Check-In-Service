@@ -3,6 +3,7 @@
 import React from 'react';
 import styles from './Fields.css';
 import GuestForm from './GuestForm';
+import CalendarContainer from './CalendarContainer';
 
 class Fields extends React.Component {
   constructor(props) {
@@ -28,13 +29,14 @@ class Fields extends React.Component {
       this.setState({
         displayGuestForm: !displayGuestForm,
       });
-    } else if (event.target.className.includes('increment')) {
+    } else if (eventTargetClass.includes('increment')) {
       const newCount = this.state[target] + 1;
       this.setState({ [target]: newCount });
-    } else if (event.target.className.includes('decrement')) {
+    } else if (eventTargetClass.includes('decrement')) {
       const newCount = this.state[target] - 1;
       this.setState({ [target]: newCount });
     }
+    // new route for calendar module goes here
   }
 
   infantRender() {
@@ -100,6 +102,7 @@ class Fields extends React.Component {
           {/* </form> */}
         </div>
         {guestForm}
+        <CalendarContainer />
       </div>
     );
   }
