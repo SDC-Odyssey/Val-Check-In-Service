@@ -20,8 +20,6 @@ class Fields extends React.Component {
   }
 
   onClick(event, target) {
-    console.log(target);
-
     const { displayGuestForm } = this.state;
     const eventTargetClass = event.target.className;
 
@@ -70,6 +68,7 @@ class Fields extends React.Component {
 
   render() {
     const { checkIn, checkOut, adults, children, infants, displayGuestForm } = this.state;
+    const { availability } = this.props;
     let guestForm;
     const infantDisplay = this.infantRender();
     const guestDisplay = this.guestRender();
@@ -102,7 +101,7 @@ class Fields extends React.Component {
           {/* </form> */}
         </div>
         {guestForm}
-        <CalendarContainer />
+        <CalendarContainer availability={availability}/>
       </div>
     );
   }

@@ -12,12 +12,14 @@ class CalendarContainer extends React.Component {
   }
 
   render() {
+    const {availability} = this.props;
+
     return (
       <div id={styles.calendarContainer}>
         {/* Header section */}
           {/* Header Text */}
           {/* Check-In, CheckOut grid */}
-        <CalendarGrid />
+        <CalendarGrid availability={availability} />
         {/* Footer section */}
       </div>
     );

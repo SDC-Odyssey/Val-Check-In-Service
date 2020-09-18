@@ -18,8 +18,6 @@ class CheckIn extends React.Component {
     const { displayDetailedPricing, buttonAction } = this.state;
     const { base_price } = pricing;
     console.log(pricing);
-    console.log(availability[0]);
-    console.log(new Date('2020-08-30 00:00'));
     return (
       <div id={styles.checkInService}>
         <div id={styles.heading}>
@@ -28,9 +26,9 @@ class CheckIn extends React.Component {
           <span id={styles.ratings}>  4.95 (386)</span>
         </div>
         <div>
-          <Fields />
+          <Fields availability={availability} />
           <div>
-            {buttonAction }
+            {buttonAction}
           </div>
         </div>
         {/* The number of nights is hardcoded temporarily */}

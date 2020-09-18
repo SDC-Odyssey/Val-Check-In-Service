@@ -18,7 +18,6 @@ class Pricings extends React.Component {
       service_fee
     } = pricing;
 
-    console.log(pricing);
     return (
       <div id={styles.pricing}>
         <p>

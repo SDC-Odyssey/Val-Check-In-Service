@@ -8,13 +8,15 @@
 }
 
 .calendarHeadDay {
-  width: 25px;
-  height: 25px;
+  text-align: center;
+  width: 35px;
+  height: 35px;
 }
 
 .calendarDay {
-  width: 25px;
-  height: 25px;
+  text-align: center;
+  width: 35px;
+  height: 35px;
 }
 
 .month {
