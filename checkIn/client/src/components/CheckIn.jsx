@@ -24,8 +24,9 @@ class CheckIn extends React.Component {
             <span id={styles.nightText}> / night</span>
           </p>
           <p id={styles.ratings}>
-            ★ 4.95
-            <span>(386)</span>
+            <span id={styles.star}>★</span>
+            {' 4.95 '}
+            <span id={styles.reviewCount}>(386)</span>
           </p>
         </div>
         <div>

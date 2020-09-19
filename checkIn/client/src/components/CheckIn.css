@@ -31,5 +31,16 @@
 }
 
 #ratings {
+  font-size: 14px;
+  font-weight: 600;
+}
 
+#reviewCount {
+  font-weight: lighter;
+  color: rgb(80, 80, 80)
+}
+
+#star {
+  font-size: 12px;
+  color: #E61E50;
 }
