@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './Fields.css';
 import GuestForm from './GuestForm';
 import CalendarContainer from './CalendarContainer';
+import Pricings from './Pricings';
 
 class Fields extends React.Component {
   constructor(props) {
@@ -15,13 +16,19 @@ class Fields extends React.Component {
       children: 0,
       infants: 0,
       displayGuestForm: false,
+      displayCalendar: false,
+      checkInDom: '',
+      checkOutDom: '',
+      nights: 'Select dates',
     };
     this.onClick = this.onClick.bind(this);
   }
 
   onClick(event, target) {
-    const { displayGuestForm } = this.state;
+    const { displayGuestForm, displayCalendar } = this.state;
+    let { checkIn, checkOut } = this.state;
     const eventTargetClass = event.target.className;
+    const date = event.target.getAttribute('date');
 
     if (target === 'guest') {
       this.setState({
@@ -33,8 +40,52 @@ class Fields extends React.Component {
     } else if (eventTargetClass.includes('decrement')) {
       const newCount = this.state[target] - 1;
       this.setState({ [target]: newCount });
+    } else if (target === 'date') {
+      let newCheckout;
+      let nights;
+      if (checkIn !== 'Add date' && checkOut !== 'Add date') {
+        if (Date.parse(date) > Date.parse(checkOut)) {
+          newCheckout = 'Add date';
+          nights = 'Select dates';
+        } else {
+          newCheckout = checkOut;
+          nights = Math.round((new Date(`${newCheckout} 00:00:00`).getTime() - new Date(`${date} 00:00:00`).getTime()) / (24 * 3600 * 1000));
+        }
+        this.setState({
+          nights,
+          checkIn: date,
+          checkOut: newCheckout,
+        });
+      } else if (checkIn === 'Add date') {
+        this.setState({
+          checkIn: date,
+          checkOut: 'Add date',
+        });
+      } else if (checkIn !== 'Add date') {
+        if (Date.parse(date) > Date.parse(checkIn)) {
+          this.setState({
+            checkOut: date,
+            nights: Math.round((new Date(`${date} 00:00:00`).getTime() - new Date(`${checkIn} 00:00:00`).getTime()) / (24 * 3600 * 1000)),
+          });
+        } else {
+          this.setState({
+            checkIn: date,
+            checkOut: 'Add date',
+          });
+        }
+      }
+    } else if (target === 'clearDates') {
+      this.setState({
+        checkIn: 'Add date',
+        checkOut: 'Add date',
+        nights: 'Select dates',
+      });
+    } else if (target === 'toggleCalendar') {
+      this.setState({
+        displayCalendar: !displayCalendar,
+        displayGuestForm: false,
+      });
     }
-    // new route for calendar module goes here
   }
 
   infantRender() {
@@ -67,9 +118,22 @@ class Fields extends React.Component {
   }
 
   render() {
-    const { checkIn, checkOut, adults, children, infants, displayGuestForm } = this.state;
-    const { availability } = this.props;
+    const {
+      checkIn,
+      checkOut,
+      adults,
+      children,
+      infants,
+      displayGuestForm,
+      displayCalendar,
+      nights,
+    } = this.state;
+
+    const { availability, pricing } = this.props;
     let guestForm;
+    let calendarForm;
+    let reserveButton;
+    let pricingModule;
     const infantDisplay = this.infantRender();
     const guestDisplay = this.guestRender();
 
@@ -79,29 +143,67 @@ class Fields extends React.Component {
       guestForm = '';
     }
 
+    if (displayCalendar) {
+      calendarForm = (
+        <CalendarContainer
+          availability={availability}
+          onClick={this.onClick}
+          nights={nights}
+          checkIn={checkIn}
+          checkOut={checkOut}
+        />
+      );
+    } else {
+      calendarForm = '';
+    }
+
+    if (nights === 'Select dates') {
+      reserveButton = (
+        <div id={styles.buttonWrapper}>
+          <button type="button" id={styles.reserveButton} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
+            Check Availability
+          </button>
+        </div>
+      );
+
+      pricingModule = '';
+    } else {
+      reserveButton = (
+        <div id={styles.buttonWrapper}>
+          <button type="button" id={styles.reserveButton}>
+            Reserve
+          </button>
+        </div>
+      );
+
+      pricingModule = <Pricings pricing={pricing} nights={nights} />;
+    }
+
     return (
       <div>
         <div id={styles.fieldGrid}>
           {/* <form> */}
-          <div id={styles.checkIn} className={styles.fields} onClick={(event) => { this.onClick(event, 'checkIn'); }}>
-            <p>CHECK-IN</p>
-            <p>{checkIn}</p>
+          <div id={styles.checkIn} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
+            <p className={styles.label}>CHECK-IN</p>
+            <p className={styles.subText}>{checkIn}</p>
           </div>
-          <div id={styles.checkOut} className={styles.fields} onClick={(event) => { this.onClick(event, 'checkOut'); }}>
-            <p>CHECKOUT</p>
-            <p>{checkOut}</p>
+          <div id={styles.checkOut} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
+            <p className={styles.label}>CHECKOUT</p>
+            <p className={styles.subText}>{checkOut}</p>
           </div>
           <div id={styles.guests} className={styles.fields} onClick={(event) => { this.onClick(event, 'guest'); }}>
-            <p>GUESTS</p>
-            <p>
+            <p className={styles.label}>GUESTS</p>
+            <p className={styles.subText}>
               {guestDisplay}
               {infantDisplay}
             </p>
           </div>
           {/* </form> */}
         </div>
+        {calendarForm}
         {guestForm}
-        <CalendarContainer availability={availability}/>
+        {reserveButton}
+        {pricingModule}
       </div>
     );
   }

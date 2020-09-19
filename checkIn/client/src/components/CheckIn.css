@@ -1,25 +1,33 @@
 #checkInService {
-  text-align: right;
   background-color: white;
   border: 1px solid rgb(221, 221, 221);
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
-  border-radius: 5px;
-  font-size: 20px;
+  border-radius: 15px;
+  font-size: 22px;
   width: 25%;
   min-width: 200px;
   position: fixed;
   right: 10%;
+  color: rgb(34, 34, 34);
 }
 
 #heading{
-  height: 80px;
+  width: 90%;
+  /* height: 80px; */
   display: flex;
-  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px auto;
 }
 
+#price{
+  font-weight: 500;
+}
 
 #nightText {
-
+  font-size: 16px;
+  font-weight: normal;
+  color: rgb(58, 58, 58);
 }
 
 #ratings {

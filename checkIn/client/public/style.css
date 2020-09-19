@@ -1,6 +1,5 @@
-.test{
-  height:10000px;
-  vertical-align: bottom;
+* {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
 }
 
 /* #checkIn {

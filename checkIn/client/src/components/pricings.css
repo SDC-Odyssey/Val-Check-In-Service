@@ -1,4 +1,52 @@
 #pricing {
-  font-size: 18px;
+  font-size: 14px;
   color: rgb(58, 58, 58);
+  text-align: center;
+  width: 90%;
+  position: relative;
+  margin: 0 auto 5px;;
+}
+
+#chargeNotification{
+  margin-top: 0px;
+}
+
+.pricingRow {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.pricingRow>p {
+  margin: 10px;
+}
+
+.pricingRow>button {
+  margin: 10px;
+  outline: none;
+  border: none;
+  background-color: white;
+  color: rgb(58, 58, 58);
+  font-weight: 600;
+  text-decoration: underline;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.pricingRow>button:hover {
+  cursor: pointer;
+  background-color: rgba(221, 221, 221, 0.432);
+}
+
+.fees {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#total {
+  font-weight: 700;
+  border-top: 2px solid rgba(221, 221, 221, 0.548);
+  font-size: 16px;
 }
