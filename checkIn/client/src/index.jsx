@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import CheckIn from './components/CheckIn';
 
-const checkInAWSAddress = 'http://ec2-13-56-20-100.us-west-1.compute.amazonaws.com';
+// const proxyAWSAddress = 'http://ec2-13-56-20-100.us-west-1.compute.amazonaws.com';
+const checkInAWSAddress = 'http://52.42.95.134';
 
 const init = async function initializeApp() {
   const url = new URL(window.location);
