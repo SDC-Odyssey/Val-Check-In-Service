@@ -9,7 +9,6 @@
   /* position: fixed; */
   right: 10%;
   color: rgb(34, 34, 34);
-  padding-top: 15px;
 }
 
 #heading{
@@ -19,6 +18,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 10px auto;
+  padding-top: 15px;
 }
 
 #price{
