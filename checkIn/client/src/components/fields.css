@@ -6,7 +6,7 @@
   width: 90%;
   margin: 0 auto;
   font-size: 12px;
-  grid-template-rows: 60px 60px;
+  grid-template-rows: 75px 75px;
 }
 
 #buttonWrapper {
@@ -47,14 +47,16 @@
 }
 
 .label {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
+  padding-top: 10px;
 }
 
 .subText {
   font-weight: normal;
   font-size: 12px;
   margin: 0 auto;
+  padding-bottom: 10px;
 }
 
 #checkIn {
