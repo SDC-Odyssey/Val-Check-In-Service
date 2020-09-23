@@ -1,19 +1,20 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './CheckIn.css';
 import Fields from './Fields';
+
 // import ReactDOM from 'react-dom';
 
 class CheckIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayDetailedPricing: false,
-    };
+    this.state = {};
   }
 
   render() {
     const { availability, pricing } = this.props;
-    const { displayDetailedPricing } = this.state;
     const { base_price } = pricing;
     console.log(pricing);
     return (
@@ -36,5 +37,10 @@ class CheckIn extends React.Component {
     );
   }
 }
+
+CheckIn.propTypes = {
+  availability: PropTypes.array,
+  pricing: PropTypes.object,
+};
 
 export default CheckIn;

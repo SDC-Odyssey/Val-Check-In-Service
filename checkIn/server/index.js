@@ -45,7 +45,6 @@ app.get('/availability/:room_id', async (req, res) => {
     const availabilityDataObject = await Availability.findAll({
       where: {
         room_id: id,
-        // date:
       },
       order: [
         ['date', 'ASC'],

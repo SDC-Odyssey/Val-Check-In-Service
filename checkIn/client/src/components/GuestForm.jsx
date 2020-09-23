@@ -21,9 +21,9 @@ class GuestForm extends React.Component {
         <div className={styles.guestFields}>
           <p className={styles.guestType} id={styles.adults}>Adults</p>
           <div className={styles.guestCount}>
-            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'adults'); }}> – </button>
+            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} data-action="decrement" onClick={(event) => { onClick(event, 'adults'); }}> – </button>
             <p>{adults}</p>
-            <button type="button" className={`increment ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'adults'); }}> + </button>
+            <button type="button" className={`increment ${styles.guestCountAdjuster}`} data-action="increment" onClick={(event) => { onClick(event, 'adults'); }}> + </button>
           </div>
         </div>
         <div className={styles.guestFields}>
@@ -32,9 +32,9 @@ class GuestForm extends React.Component {
             <p className={styles.ageGroups}> Ages 2-12</p>
           </div>
           <div className={styles.guestCount}>
-            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'children'); }}> – </button>
+            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} data-action="decrement" onClick={(event) => { onClick(event, 'children'); }}> – </button>
             <p>{children}</p>
-            <button type="button" className={`increment ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'children'); }}> + </button>
+            <button type="button" className={`increment ${styles.guestCountAdjuster}`} data-action="increment" onClick={(event) => { onClick(event, 'children'); }}> + </button>
           </div>
         </div>
         <div className={styles.guestFields}>
@@ -43,9 +43,9 @@ class GuestForm extends React.Component {
             <p className={styles.ageGroups}> Under 2</p>
           </div>
           <div className={styles.guestCount}>
-            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'infants'); }}> – </button>
+            <button type="button" className={`decrement ${styles.guestCountAdjuster}`} data-action="decrement" onClick={(event) => { onClick(event, 'infants'); }}> – </button>
             <p>{infants}</p>
-            <button type="button" className={`increment ${styles.guestCountAdjuster}`} onClick={(event) => { onClick(event, 'infants'); }}> + </button>
+            <button type="button" className={`increment ${styles.guestCountAdjuster}`} data-action="increment" onClick={(event) => { onClick(event, 'infants'); }}> + </button>
           </div>
         </div>
         <p id={styles.infobox}>2 guests maximum. Infants don't count toward the number of guests</p>

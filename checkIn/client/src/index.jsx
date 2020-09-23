@@ -6,19 +6,31 @@ import axios from 'axios';
 import CheckIn from './components/CheckIn';
 
 // const proxyAWSAddress = 'http://ec2-13-56-20-100.us-west-1.compute.amazonaws.com';
-const checkInAWSAddress = 'http://52.42.95.134';
+const localhost = 'http://127.0.0.1';
 
 const init = async function initializeApp() {
   const url = new URL(window.location);
   const idSplit = url.search.split('?');
-  // This should send a request to the proxy server
-  // The proxy server will then send a request to all other endpoints
+
   let id = idSplit[1];
   if (!id) {
     id = 1;
   }
-  const pricingInformation = await axios.get(`${checkInAWSAddress}:3000/pricing/${id}`);
-  const availabilityInformation = await axios.get(`${checkInAWSAddress}:3000/availability/${id}`);
+
+  let pricingInformation;
+  try {
+    pricingInformation = await axios.get(`${localhost}:3003/pricing/${id}`);
+  } catch {
+    console.log('Could not retrieve pricing information from the server');
+  }
+
+  let availabilityInformation;
+  try {
+    availabilityInformation = await axios.get(`${localhost}:3003/availability/${id}`);
+  } catch {
+    console.log('Could not retrieve pricing information from the server');
+  }
+
   ReactDOM.render(<CheckIn pricing={pricingInformation.data} availability={availabilityInformation.data} />, document.getElementById('checkIn'));
 };
 

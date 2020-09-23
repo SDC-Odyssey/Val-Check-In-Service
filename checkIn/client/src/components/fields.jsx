@@ -25,22 +25,17 @@ class Fields extends React.Component {
   }
 
   onClick(event, target) {
-    const { displayGuestForm, displayCalendar } = this.state;
+    const { displayCalendar } = this.state;
     let { checkIn, checkOut } = this.state;
-    const eventTargetClass = event.target.className;
-    const date = event.target.getAttribute('date');
 
-    if (target === 'guest') {
-      this.setState({
-        displayGuestForm: !displayGuestForm,
-      });
-    } else if (eventTargetClass.includes('increment')) {
-      const newCount = this.state[target] + 1;
-      this.setState({ [target]: newCount });
-    } else if (eventTargetClass.includes('decrement')) {
-      const newCount = this.state[target] - 1;
-      this.setState({ [target]: newCount });
-    } else if (target === 'date') {
+    const date = event.target.getAttribute('date');
+    this.toggleGuest(target);
+
+    const action = event.target.getAttribute('data-action');
+    this.alterGuestCount(target, action);
+
+    if (target === 'date') {
+      // refactor date selection into own function
       let newCheckout;
       let nights;
       if (checkIn !== 'Add date' && checkOut !== 'Add date') {
@@ -63,6 +58,7 @@ class Fields extends React.Component {
         });
       } else if (checkIn !== 'Add date') {
         if (Date.parse(date) > Date.parse(checkIn)) {
+          // refactor date difference into its own functions
           this.setState({
             checkOut: date,
             nights: Math.round((new Date(`${date} 00:00:00`).getTime() - new Date(`${checkIn} 00:00:00`).getTime()) / (24 * 3600 * 1000)),
@@ -85,6 +81,23 @@ class Fields extends React.Component {
         displayCalendar: !displayCalendar,
         displayGuestForm: false,
       });
+    }
+  }
+
+  toggleGuest(target) {
+    const { displayGuestForm } = this.state;
+    if (target === 'guest') {
+      this.setState({
+        displayGuestForm: !displayGuestForm,
+      });
+    }
+  }
+
+  alterGuestCount(target, action) {
+    if (action === 'increment') {
+      this.setState((prevState) => ({ [target]: prevState[target] + 1 }));
+    } else if (action === 'decrement') {
+      this.setState((prevState) => ({ [target]: prevState[target] - 1 }));
     }
   }
 
@@ -130,13 +143,13 @@ class Fields extends React.Component {
     } = this.state;
 
     const { availability, pricing } = this.props;
-    let guestForm;
     let calendarForm;
     let reserveButton;
     let pricingModule;
     const infantDisplay = this.infantRender();
     const guestDisplay = this.guestRender();
 
+    let guestForm;
     if (displayGuestForm) {
       guestForm = <GuestForm guests={{ adults, children, infants }} onClick={this.onClick} />;
     } else {
@@ -157,17 +170,8 @@ class Fields extends React.Component {
       calendarForm = '';
     }
 
-    if (nights === 'Select dates') {
-      reserveButton = (
-        <div id={styles.buttonWrapper}>
-          <button type="button" id={styles.reserveButton} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
-            Check Availability
-          </button>
-        </div>
-      );
-
-      pricingModule = '';
-    } else {
+    const areNightsSelected = nights !== 'Select dates';
+    if (areNightsSelected) {
       reserveButton = (
         <div id={styles.buttonWrapper}>
           <button type="button" id={styles.reserveButton}>
@@ -177,6 +181,16 @@ class Fields extends React.Component {
       );
 
       pricingModule = <Pricings pricing={pricing} nights={nights} />;
+    } else {
+      reserveButton = (
+        <div id={styles.buttonWrapper}>
+          <button type="button" id={styles.reserveButton} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
+            Check Availability
+          </button>
+        </div>
+      );
+
+      pricingModule = '';
     }
 
     return (
