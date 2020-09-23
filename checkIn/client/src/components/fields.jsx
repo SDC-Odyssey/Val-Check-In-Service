@@ -6,6 +6,12 @@ import GuestForm from './GuestForm';
 import CalendarContainer from './CalendarContainer';
 import Pricings from './Pricings';
 
+const dateDiff = function dateDifference(laterDateString, earlierDateString) {
+  const differenceInMilliseconds = Date.parse(laterDateString) - Date.parse(earlierDateString);
+  const differenceInDays = differenceInMilliseconds / (24 * 3600 * 1000);
+  return differenceInDays;
+};
+
 class Fields extends React.Component {
   constructor(props) {
     super(props);
@@ -25,19 +31,24 @@ class Fields extends React.Component {
   }
 
   onClick(event, target) {
-    const { displayCalendar } = this.state;
-    let { checkIn, checkOut } = this.state;
+    const { checkIn, checkOut } = this.state;
 
-    const date = event.target.getAttribute('date');
     this.toggleGuest(target);
 
     const action = event.target.getAttribute('data-action');
     this.alterGuestCount(target, action);
+    this.toggleCalendar(target);
+    this.clearDates(target);
+    this.changeDate(target, event);
 
+
+
+    const date = event.target.getAttribute('date');
     if (target === 'date') {
       // refactor date selection into own function
       let newCheckout;
       let nights;
+
       if (checkIn !== 'Add date' && checkOut !== 'Add date') {
         if (Date.parse(date) > Date.parse(checkOut)) {
           newCheckout = 'Add date';
@@ -70,13 +81,48 @@ class Fields extends React.Component {
           });
         }
       }
-    } else if (target === 'clearDates') {
+    }
+  }
+
+  changeDate(target, event) {
+    if (target === 'date') {
+      const { checkIn, checkOut } = this.state;
+      const { target: eventTarget } = event;
+      const targetDate = eventTarget.getAttribute('date');
+
+      const isCheckInPopulated = checkIn !== 'Add date';
+      const isCheckOutPopulated = checkOut !== 'Add date';
+      const areBothDatesPopulated = isCheckInPopulated && isCheckOutPopulated;
+
+      if (areBothDatesPopulated && (dateDiff(targetDate, checkOut) > 0)) {
+        this.setState({
+          nights: 'Select date',
+          checkIn: targetDate,
+          checkOut: 'Add date',
+        });
+      } else if (areBothDatesPopulated && dateDiff(targetDate, checkOut) <= 0) {
+        this.setState({
+          nights: dateDiff(checkOut, targetDate),
+          checkIn: targetDate,
+        });
+      }
+    }
+  }
+
+  clearDates(target) {
+    if (target === 'clearDates') {
       this.setState({
         checkIn: 'Add date',
         checkOut: 'Add date',
         nights: 'Select dates',
       });
-    } else if (target === 'toggleCalendar') {
+    }
+  }
+
+  toggleCalendar(target) {
+    const { displayCalendar } = this.state;
+
+    if (target === 'toggleCalendar') {
       this.setState({
         displayCalendar: !displayCalendar,
         displayGuestForm: false,
