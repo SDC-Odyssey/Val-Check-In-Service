@@ -1,6 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Fields.css';
 import GuestForm from './GuestForm';
 import CalendarContainer from './CalendarContainer';
@@ -8,7 +10,7 @@ import Pricings from './Pricings';
 
 const dateDiff = function dateDifference(laterDateString, earlierDateString) {
   const differenceInMilliseconds = Date.parse(laterDateString) - Date.parse(earlierDateString);
-  const differenceInDays = differenceInMilliseconds / (24 * 3600 * 1000);
+  const differenceInDays = Math.round(differenceInMilliseconds / (24 * 3600 * 1000));
   return differenceInDays;
 };
 
@@ -31,59 +33,14 @@ class Fields extends React.Component {
   }
 
   onClick(event, target) {
-    const { checkIn, checkOut } = this.state;
-
     this.toggleGuest(target);
-
-    const action = event.target.getAttribute('data-action');
-    this.alterGuestCount(target, action);
+    this.alterGuestCount(target, event);
     this.toggleCalendar(target);
     this.clearDates(target);
     this.changeDate(target, event);
-
-
-
-    const date = event.target.getAttribute('date');
-    if (target === 'date') {
-      // refactor date selection into own function
-      let newCheckout;
-      let nights;
-
-      if (checkIn !== 'Add date' && checkOut !== 'Add date') {
-        if (Date.parse(date) > Date.parse(checkOut)) {
-          newCheckout = 'Add date';
-          nights = 'Select dates';
-        } else {
-          newCheckout = checkOut;
-          nights = Math.round((new Date(`${newCheckout} 00:00:00`).getTime() - new Date(`${date} 00:00:00`).getTime()) / (24 * 3600 * 1000));
-        }
-        this.setState({
-          nights,
-          checkIn: date,
-          checkOut: newCheckout,
-        });
-      } else if (checkIn === 'Add date') {
-        this.setState({
-          checkIn: date,
-          checkOut: 'Add date',
-        });
-      } else if (checkIn !== 'Add date') {
-        if (Date.parse(date) > Date.parse(checkIn)) {
-          // refactor date difference into its own functions
-          this.setState({
-            checkOut: date,
-            nights: Math.round((new Date(`${date} 00:00:00`).getTime() - new Date(`${checkIn} 00:00:00`).getTime()) / (24 * 3600 * 1000)),
-          });
-        } else {
-          this.setState({
-            checkIn: date,
-            checkOut: 'Add date',
-          });
-        }
-      }
-    }
   }
 
+  // next step is to test when checkIn is empty
   changeDate(target, event) {
     if (target === 'date') {
       const { checkIn, checkOut } = this.state;
@@ -93,17 +50,34 @@ class Fields extends React.Component {
       const isCheckInPopulated = checkIn !== 'Add date';
       const isCheckOutPopulated = checkOut !== 'Add date';
       const areBothDatesPopulated = isCheckInPopulated && isCheckOutPopulated;
+      const isTargetDateAfterCheckOut = dateDiff(targetDate, checkOut) > 0;
+      const isTargetDateAfterCheckIn = dateDiff(targetDate, checkIn) > 0;
 
-      if (areBothDatesPopulated && (dateDiff(targetDate, checkOut) > 0)) {
+      if (areBothDatesPopulated && isTargetDateAfterCheckOut) {
         this.setState({
           nights: 'Select date',
           checkIn: targetDate,
           checkOut: 'Add date',
         });
-      } else if (areBothDatesPopulated && dateDiff(targetDate, checkOut) <= 0) {
+      } else if (areBothDatesPopulated && !isTargetDateAfterCheckOut) {
         this.setState({
-          nights: dateDiff(checkOut, targetDate),
           checkIn: targetDate,
+          nights: dateDiff(checkOut, targetDate),
+        });
+      } else if (isCheckInPopulated && !isCheckOutPopulated && isTargetDateAfterCheckIn) {
+        this.setState({
+          checkOut: targetDate,
+          nights: dateDiff(targetDate, checkIn),
+        });
+      } else if (isCheckInPopulated && !isCheckOutPopulated && !isTargetDateAfterCheckIn) {
+        this.setState({
+          checkIn: targetDate,
+          checkOut: 'Add date',
+        });
+      } else if (!isCheckInPopulated) {
+        this.setState({
+          checkIn: targetDate,
+          checkOut: 'Add date',
         });
       }
     }
@@ -139,7 +113,9 @@ class Fields extends React.Component {
     }
   }
 
-  alterGuestCount(target, action) {
+  alterGuestCount(target, event) {
+    const { target: eventTarget } = event;
+    const action = eventTarget.getAttribute('data-action');
     if (action === 'increment') {
       this.setState((prevState) => ({ [target]: prevState[target] + 1 }));
     } else if (action === 'decrement') {
@@ -243,15 +219,15 @@ class Fields extends React.Component {
       <div>
         <div id={styles.fieldGrid}>
           {/* <form> */}
-          <div id={styles.checkIn} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
+          <div id={styles.checkIn} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }} role="button" tabIndex={0}>
             <p className={styles.label}>CHECK-IN</p>
             <p className={styles.subText}>{checkIn}</p>
           </div>
-          <div id={styles.checkOut} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
+          <div id={styles.checkOut} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }} role="button" tabIndex={0}>
             <p className={styles.label}>CHECKOUT</p>
             <p className={styles.subText}>{checkOut}</p>
           </div>
-          <div id={styles.guests} className={styles.fields} onClick={(event) => { this.onClick(event, 'guest'); }}>
+          <div id={styles.guests} className={styles.fields} onClick={(event) => { this.onClick(event, 'guest'); }} role="button" tabIndex={0}>
             <p className={styles.label}>GUESTS</p>
             <p className={styles.subText}>
               {guestDisplay}
@@ -268,5 +244,10 @@ class Fields extends React.Component {
     );
   }
 }
+
+Fields.propTypes = {
+  availability: PropTypes.array.isRequired,
+  pricing: PropTypes.object.isRequired,
+};
 
 export default Fields;
