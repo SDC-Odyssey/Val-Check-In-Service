@@ -1,11 +1,10 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/forbid-prop-types */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './CheckIn.css';
 import Fields from './Fields';
-
-// import ReactDOM from 'react-dom';
 
 class CheckIn extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class CheckIn extends React.Component {
       <div id={styles.checkInService}>
         <div id={styles.heading}>
           <p id={styles.price}>
-            ${base_price}
+            ${ base_price }
             <span id={styles.nightText}> / night</span>
           </p>
           <p id={styles.ratings}>
