@@ -1,41 +1,45 @@
+/* eslint-disable camelcase */
+/* eslint-disable react/forbid-prop-types */
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './CheckIn.css';
 import Fields from './Fields';
-import Pricings from './Pricings';
-// import ReactDOM from 'react-dom';
 
 class CheckIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayDetailedPricing: false,
-      buttonAction: 'Check availability',
-    };
+    this.state = {};
   }
 
   render() {
     const { availability, pricing } = this.props;
-    const { displayDetailedPricing, buttonAction } = this.state;
     const { base_price } = pricing;
     console.log(pricing);
     return (
       <div id={styles.checkInService}>
         <div id={styles.heading}>
-          ${base_price}
-          <span id={styles.nightText}> / night</span>
-          <span id={styles.ratings}>  4.95 (386)</span>
+          <p id={styles.price}>
+            ${ base_price }
+            <span id={styles.nightText}> / night</span>
+          </p>
+          <p id={styles.ratings}>
+            <span id={styles.star}>★</span>
+            {' 4.95 '}
+            <span id={styles.reviewCount}>(386)</span>
+          </p>
         </div>
         <div>
-          <Fields />
-          <div>
-            {buttonAction }
-          </div>
+          <Fields availability={availability} pricing={pricing} />
         </div>
-        {/* The number of nights is hardcoded temporarily */}
-        <Pricings pricing={pricing} numberOfNights={5} />
       </div>
     );
   }
 }
+
+CheckIn.propTypes = {
+  availability: PropTypes.array.isRequired,
+  pricing: PropTypes.object.isRequired,
+};
 
 export default CheckIn;

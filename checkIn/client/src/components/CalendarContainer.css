@@ -1,0 +1,134 @@
+#calendarContainer{
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  width: 600px;
+  border: 1px solid rgb(221, 221, 221);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+  left: 0%;
+  top: 50px;
+}
+
+#header {
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  text-align: left;
+  float: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 90%;
+}
+
+#headerTitle{
+  width: 40%;
+}
+
+#headerTitle>#headerTitleText{
+  color: rgb(26, 25, 25);
+  font-weight: 400;
+  font-size: 25px;
+  margin-bottom: 5px; 
+}
+
+#headerTitle>p{
+  color:rgb(124, 124, 124);
+  font-size: 14px; 
+}
+
+#fieldGrid {
+  display: grid;
+  text-align: left;
+  /* border-radius: 10%; */
+  width: 50%;
+  margin: 0 auto;
+  font-size: 12px;
+  height: 100%;
+  grid-template-rows: 100%;
+  margin-left: 20%;
+}
+
+#fieldGrid:hover {
+  cursor: pointer;
+}
+
+.fields {
+  padding-left: 10px;
+}
+
+/* .fields:active {
+  outline: 1px solid black;
+} */
+
+.label {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.subText {
+  font-weight: normal;
+  font-size: 12px;
+  margin: 0 auto;
+  padding-bottom: 10%;
+}
+
+#checkIn {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  /* border-right: 1px solid rgb(190, 190, 190); */
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10% 0 0 10%;
+}
+
+#checkOut {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 0 10% 10% 0;
+}
+
+#footer{
+  display: inline-flex;
+  height: 50px;
+  width: 95%;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-right: 5%;
+  font-size: 16px;
+}
+
+#footer>button{
+  height: 65%;
+  border-radius: 15%;
+  border: none;
+  margin: 0 10px;
+  outline: none;
+}
+
+#footer>button:hover{
+  cursor: pointer;
+}
+
+#close{
+  width: 70px;
+  background-color: rgb(37, 37, 37);
+  color: white;
+}
+
+#close:hover{
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+#clearDate{
+  background-color: rgb(255, 255, 255);
+  color: rgb(26, 25, 25);
+  width: 20%;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+#clearDate:hover{
+  background-color: rgba(172, 164, 164, 0.103);
+}
