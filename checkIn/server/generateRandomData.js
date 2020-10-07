@@ -48,5 +48,3 @@ exports.generateAvailability = function createAvailabilityDates() {
   return newRecords;
 };
 
-// exports.createRandomCheckInData();
-// exports.createAvailabilityDates();

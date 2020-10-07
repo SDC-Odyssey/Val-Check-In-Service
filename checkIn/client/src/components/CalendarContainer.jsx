@@ -1,24 +1,38 @@
 import React from 'react';
 import styles from './CalendarContainer.css';
-import fieldGridStyles from './Fields.css';
 
 import CalendarGrid from './CalendarGrid';
 
 class CalendarContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // nights: 0,
-    };
+    this.state = {};
   }
 
   render() {
-    const {availability, onClick, nights, checkIn, checkOut} = this.props;
+    const { availability, onClick, nights, checkIn, checkOut } = this.props;
     const checkInDateObject = new Date(`${checkIn} 00:00:00`);
     const checkOutDateObject = new Date(`${checkOut} 00:00:00`);
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const formattedCheckIn = `${monthNames[checkInDateObject.getMonth()]} ${checkInDateObject.getDate()}, ${checkInDateObject.getFullYear()}`;
-    const formattedCheckOut = `${monthNames[checkOutDateObject.getMonth()]} ${checkOutDateObject.getDate()}, ${checkOutDateObject.getFullYear()}`;
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const formattedCheckIn = `${
+      monthNames[checkInDateObject.getMonth()]
+    } ${checkInDateObject.getDate()}, ${checkInDateObject.getFullYear()}`;
+    const formattedCheckOut = `${
+      monthNames[checkOutDateObject.getMonth()]
+    } ${checkOutDateObject.getDate()}, ${checkOutDateObject.getFullYear()}`;
 
     let header;
     if (nights === 'Select dates') {
@@ -31,18 +45,14 @@ class CalendarContainer extends React.Component {
     } else if (nights === 1) {
       header = (
         <div id={styles.headerTitle}>
-          <p id={styles.headerTitleText}>
-            {`${nights} night`}
-          </p>
+          <p id={styles.headerTitleText}>{`${nights} night`}</p>
           <p>{`${formattedCheckIn} - ${formattedCheckOut}`}</p>
         </div>
       );
     } else {
       header = (
         <div id={styles.headerTitle}>
-          <p id={styles.headerTitleText}>
-            {`${nights} nights`}
-          </p>
+          <p id={styles.headerTitleText}>{`${nights} nights`}</p>
           <p>{`${formattedCheckIn} - ${formattedCheckOut}`}</p>
         </div>
       );
@@ -62,16 +72,34 @@ class CalendarContainer extends React.Component {
             </div>
           </div>
         </div>
-          {/* Check-In, CheckOut grid */}
+        {/* Check-In, CheckOut grid */}
         <CalendarGrid
           availability={availability}
-          onClick={(event) => { onClick(event, 'date'); }}
+          onClick={(event) => {
+            onClick(event, 'date');
+          }}
           checkIn={checkIn}
           checkOut={checkOut}
         />
         <div id={styles.footer}>
-          <button id={styles.clearDate} type="button" onClick={(event) => { onClick(event, 'clearDates'); }}>Clear Dates</button>
-          <button id={styles.close} type="button" onClick={(event) => { onClick(event, 'toggleCalendar'); }}>Close</button>
+          <button
+            id={styles.clearDate}
+            type="button"
+            onClick={(event) => {
+              onClick(event, 'clearDates');
+            }}
+          >
+            Clear Dates
+          </button>
+          <button
+            id={styles.close}
+            type="button"
+            onClick={(event) => {
+              onClick(event, 'toggleCalendar');
+            }}
+          >
+            Close
+          </button>
         </div>
       </div>
     );

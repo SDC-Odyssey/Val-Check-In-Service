@@ -23,13 +23,12 @@
   margin: 0 auto;
 }
 
-
-.unavailable{
+.unavailable {
   text-decoration: line-through;
   color: lightgray;
 }
 
-.calendarDay>button{
+.calendarDay > button {
   border-radius: 50%;
   background-color: white;
   padding: 1px;
@@ -40,7 +39,7 @@
   font-size: 14px;
 }
 
-.calendarDay>button:hover{
+.calendarDay > button:hover {
   cursor: pointer;
   box-shadow: 0 0 0px 1px black;
 }
@@ -59,7 +58,7 @@
   align-items: center;
 }
 
-.scroll>button{
+.scroll > button {
   width: 30px;
   height: 30px;
   text-align: center;
@@ -69,13 +68,13 @@
   border-radius: 50%;
 }
 
-.scroll>button:hover{
+.scroll > button:hover {
   cursor: pointer;
   background-color: rgba(221, 221, 221, 0.432);
-  transition-delay: .12s;
+  transition-delay: 0.12s;
 }
 
-.scroll>p{
+.scroll > p {
   width: 90%;
 }
 
@@ -84,7 +83,7 @@
   float: left;
 }
 
-#scrollLeft>p {
+#scrollLeft > p {
   padding-left: 45px;
 }
 
@@ -93,7 +92,7 @@
   float: right;
 }
 
-#scrollRight>p {
+#scrollRight > p {
   padding-right: 45px;
 }
 
@@ -111,7 +110,6 @@
 
 .unavailable {
   text-decoration: line-through;
-
 }
 
 .selected {

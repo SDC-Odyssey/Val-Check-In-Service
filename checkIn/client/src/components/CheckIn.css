@@ -11,7 +11,7 @@
   color: rgb(34, 34, 34);
 }
 
-#heading{
+#heading {
   width: 90%;
   /* height: 80px; */
   display: flex;
@@ -21,7 +21,7 @@
   padding-top: 15px;
 }
 
-#price{
+#price {
   font-weight: 500;
 }
 
@@ -38,10 +38,10 @@
 
 #reviewCount {
   font-weight: lighter;
-  color: rgb(80, 80, 80)
+  color: rgb(80, 80, 80);
 }
 
 #star {
   font-size: 12px;
-  color: #E61E50;
+  color: #e61e50;
 }

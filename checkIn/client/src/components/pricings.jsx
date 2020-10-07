@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Pricings.css';
+import styles from './pricings.css';
 
 class Pricings extends React.Component {
   constructor(props) {
@@ -18,7 +18,10 @@ class Pricings extends React.Component {
       this.setState({
         pricingToggle: 'Show price details',
       });
-    } else if (target.id === 'toggle' && pricingToggle === 'Show price details') {
+    } else if (
+      target.id === 'toggle' &&
+      pricingToggle === 'Show price details'
+    ) {
       this.setState({
         pricingToggle: 'Hide price details',
       });
@@ -32,7 +35,7 @@ class Pricings extends React.Component {
       cleaning_fee,
       cost_additional_person,
       occupancy_fee,
-      service_fee
+      service_fee,
     } = pricing;
     const { pricingToggle } = this.state;
     let numberOfNights;
@@ -43,11 +46,12 @@ class Pricings extends React.Component {
       numberOfNights = nights;
     }
 
-    const baseTotal = (base_price * numberOfNights);
+    const baseTotal = base_price * numberOfNights;
     const cleaningFeeTotal = Math.round(cleaning_fee);
     const serviceFeeTotal = Math.round(service_fee);
     const occupancyFeeTotal = Math.round(occupancy_fee);
-    const total = baseTotal + cleaningFeeTotal + serviceFeeTotal + occupancyFeeTotal;
+    const total =
+      baseTotal + cleaningFeeTotal + serviceFeeTotal + occupancyFeeTotal;
 
     let pricingDetails;
 
@@ -57,36 +61,20 @@ class Pricings extends React.Component {
       pricingDetails = (
         <div id={styles.pricingDetails}>
           <div className={styles.pricingRow}>
-            <p>
-              {`$${base_price} x ${numberOfNights} nights`}
-            </p>
-            <p>
-              {`$${baseTotal}`}
-            </p>
+            <p>{`$${base_price} x ${numberOfNights} nights`}</p>
+            <p>{`$${baseTotal}`}</p>
           </div>
           <div className={styles.pricingRow}>
-            <p className={styles.fees}>
-              Cleaning fee
-            </p>
-            <p>
-              {`$${cleaningFeeTotal}`}
-            </p>
+            <p className={styles.fees}>Cleaning fee</p>
+            <p>{`$${cleaningFeeTotal}`}</p>
           </div>
           <div className={styles.pricingRow}>
-            <p className={styles.fees}>
-              Service fee
-            </p>
-            <p>
-              {`$${serviceFeeTotal}`}
-            </p>
+            <p className={styles.fees}>Service fee</p>
+            <p>{`$${serviceFeeTotal}`}</p>
           </div>
           <div className={styles.pricingRow}>
-            <p className={styles.fees}>
-              Occupancy fee and taxes
-            </p>
-            <p>
-              {`$${occupancyFeeTotal}`}
-            </p>
+            <p className={styles.fees}>Occupancy fee and taxes</p>
+            <p>{`$${occupancyFeeTotal}`}</p>
           </div>
         </div>
       );
@@ -94,20 +82,16 @@ class Pricings extends React.Component {
 
     return (
       <div id={styles.pricing}>
-        <p id={styles.chargeNotification}>
-          You won't be charged yet
-        </p>
+        <p id={styles.chargeNotification}>You won't be charged yet</p>
         {pricingDetails}
         <div className={styles.pricingRow}>
-          <button type="button" id="toggle" onClick={this.onPricingToggle}>{pricingToggle}</button>
+          <button type="button" id="toggle" onClick={this.onPricingToggle}>
+            {pricingToggle}
+          </button>
         </div>
         <div className={styles.pricingRow} id={styles.total}>
-          <p>
-            Total
-          </p>
-          <p>
-            {`$${total}`}
-          </p>
+          <p>Total</p>
+          <p>{`$${total}`}</p>
         </div>
       </div>
     );

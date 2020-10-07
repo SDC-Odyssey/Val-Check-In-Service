@@ -22,7 +22,7 @@
 #reserveButton {
   width: 100%;
   outline: none;
-  background-color: #E61E50;
+  background-color: #e61e50;
   border: none;
   color: white;
   font-size: 16px;
@@ -78,5 +78,3 @@
   grid-column-end: 3;
   /* border-top: 1px solid rgb(190, 190, 190); */
 }
-
-

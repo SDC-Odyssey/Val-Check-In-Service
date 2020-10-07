@@ -11,7 +11,7 @@ const {
   generateAvailability,
 } = require('./generateRandomData');
 
-const password = 'secret_Wilson10!';
+const password = 'Richi53!';
 
 const init = async function initializeNewDatabase() {
   const newConnection = new Sequelize('', 'root', password, {

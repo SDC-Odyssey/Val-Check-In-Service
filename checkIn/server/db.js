@@ -6,7 +6,7 @@ const {
   BOOLEAN,
 } = require('sequelize');
 
-const password = 'secret_Wilson10!';
+const password = 'Richi53!';
 
 const sequelize = new Sequelize('check_in', 'root', password, {
   host: 'localhost',
