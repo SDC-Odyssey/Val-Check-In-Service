@@ -1,4 +1,4 @@
-#guestBox{
+#guestBox {
   /* text-align: left; */
   padding-top: 10px;
   padding-left: 20px;
@@ -15,16 +15,16 @@
   font-size: 18px;
 }
 
-#guestBox>div{
+#guestBox > div {
   display: flex;
   align-content: center;
   justify-content: center;
 }
 
-.guestType{
+.guestType {
   width: 60%;
   padding-left: 5px;
-  text-align: left;  
+  text-align: left;
 }
 
 #adults {
@@ -36,18 +36,19 @@
   color: rgb(37, 37, 37);
 }
 
-.guestCount{
+.guestCount {
   width: 40%;
-  text-align: center; 
+  text-align: center;
   vertical-align: middle;
   margin: 0 auto;
   justify-content: space-between;
-  display: inline-flex;  
+  display: inline-flex;
   padding-right: 30px;
   align-items: center;
 }
 
-.guestCount>p, .guestCountAdjuster{
+.guestCount > p,
+.guestCountAdjuster {
   color: gray;
   display: flex;
   align-items: center;
@@ -57,27 +58,27 @@
   margin-left: 1px;
 }
 
-.guestCountAdjuster{
+.guestCountAdjuster {
   background-color: white;
   border: 1px solid gray;
   border-radius: 50%;
   outline: none;
 }
 
-.guestCountAdjuster:hover{
+.guestCountAdjuster:hover {
   cursor: pointer;
   border-color: black;
   color: black;
 }
 
-#infobox{
+#infobox {
   font-size: 14px;
   color: gray;
   text-align: left;
   margin: 5px;
 }
 
-#close{
+#close {
   background-color: white;
   font-size: 18px;
   border: none;
@@ -89,7 +90,7 @@
   outline: none;
 }
 
-#close:hover{
+#close:hover {
   background-color: rgba(247, 242, 242, 0.507);
   transition-delay: 0.04s;
   cursor: pointer;

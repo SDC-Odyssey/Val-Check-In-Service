@@ -1,4 +1,4 @@
-#calendarContainer{
+#calendarContainer {
   position: absolute;
   z-index: 100;
   background-color: white;
@@ -21,20 +21,20 @@
   width: 90%;
 }
 
-#headerTitle{
+#headerTitle {
   width: 40%;
 }
 
-#headerTitle>#headerTitleText{
+#headerTitle > #headerTitleText {
   color: rgb(26, 25, 25);
   font-weight: 400;
   font-size: 25px;
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
 }
 
-#headerTitle>p{
-  color:rgb(124, 124, 124);
-  font-size: 14px; 
+#headerTitle > p {
+  color: rgb(124, 124, 124);
+  font-size: 14px;
 }
 
 #fieldGrid {
@@ -88,7 +88,7 @@
   border-radius: 0 10% 10% 0;
 }
 
-#footer{
+#footer {
   display: inline-flex;
   height: 50px;
   width: 95%;
@@ -98,7 +98,7 @@
   font-size: 16px;
 }
 
-#footer>button{
+#footer > button {
   height: 65%;
   border-radius: 15%;
   border: none;
@@ -106,22 +106,22 @@
   outline: none;
 }
 
-#footer>button:hover{
+#footer > button:hover {
   cursor: pointer;
 }
 
-#close{
+#close {
   width: 70px;
   background-color: rgb(37, 37, 37);
   color: white;
 }
 
-#close:hover{
+#close:hover {
   background-color: rgb(0, 0, 0);
   color: white;
 }
 
-#clearDate{
+#clearDate {
   background-color: rgb(255, 255, 255);
   color: rgb(26, 25, 25);
   width: 20%;
@@ -129,6 +129,6 @@
   font-weight: 500;
 }
 
-#clearDate:hover{
+#clearDate:hover {
   background-color: rgba(172, 164, 164, 0.103);
 }

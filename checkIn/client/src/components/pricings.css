@@ -4,10 +4,10 @@
   text-align: center;
   width: 90%;
   position: relative;
-  margin: 0 auto 5px;;
+  margin: 0 auto 5px;
 }
 
-#chargeNotification{
+#chargeNotification {
   margin-top: 0px;
 }
 
@@ -18,11 +18,11 @@
   width: 100%;
 }
 
-.pricingRow>p {
+.pricingRow > p {
   margin: 10px;
 }
 
-.pricingRow>button {
+.pricingRow > button {
   margin: 10px;
   outline: none;
   border: none;
@@ -35,7 +35,7 @@
   font-size: 16px;
 }
 
-.pricingRow>button:hover {
+.pricingRow > button:hover {
   cursor: pointer;
   background-color: rgba(221, 221, 221, 0.432);
 }

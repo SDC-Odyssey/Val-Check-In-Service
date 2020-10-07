@@ -14,7 +14,20 @@ class CalendarGrid extends React.Component {
       currentMonthIndex: 1,
       nextMonthIndex: 2,
       // hardcoding this in temporarily. Need to refactor to make dynamic
-      validMonths: ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021', 'June 2021', 'July 2021'],
+      validMonths: [
+        'August 2020',
+        'September 2020',
+        'October 2020',
+        'November 2020',
+        'December 2020',
+        'January 2021',
+        'February 2021',
+        'March 2021',
+        'April 2021',
+        'May 2021',
+        'June 2021',
+        'July 2021',
+      ],
     };
 
     this.renderMonth = this.renderMonth.bind(this);
@@ -43,7 +56,20 @@ class CalendarGrid extends React.Component {
   groupMonths() {
     const { availability } = this.props;
     const monthGroups = {};
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
     _.each(availability, (dateRow) => {
       const dateObject = new Date(`${dateRow.date} 00:00:00`);
       const monthIndex = dateObject.getMonth();
@@ -62,7 +88,9 @@ class CalendarGrid extends React.Component {
 
     _.each(monthGroups, (month, key) => {
       const { firstDay } = month;
-      const lastDay = 32 - new Date(firstDay.getFullYear(), firstDay.getMonth(), 32).getDate();
+      const lastDay =
+        32 -
+        new Date(firstDay.getFullYear(), firstDay.getMonth(), 32).getDate();
       monthGroups[key].lastDay = lastDay;
     });
 
@@ -84,17 +112,17 @@ class CalendarGrid extends React.Component {
       for (let x = 0; x < 7; x += 1) {
         let day;
         if (i === 0 && x < firstDay) {
-          day = (
-            <td className={styles.calendarDay} key={x + (i * 6)} />
-          );
+          day = <td className={styles.calendarDay} key={x + i * 6} />;
         } else if (serverDataPointer >= lastDay) {
-          day = (
-            <td className={styles.calendarDay} key={x + (i * 6)} />
-          );
+          day = <td className={styles.calendarDay} key={x + i * 6} />;
         } else if (serverDataPointer < serverData.length) {
           const serverDataDay = serverData[serverDataPointer];
-          const isSelected = serverDataDay.date === checkIn || serverDataDay.date === checkOut;
-          const isBetween = checkOut !== 'Add date' && (serverDataDay.date > checkIn && serverDataDay.date < checkOut);
+          const isSelected =
+            serverDataDay.date === checkIn || serverDataDay.date === checkOut;
+          const isBetween =
+            checkOut !== 'Add date' &&
+            serverDataDay.date > checkIn &&
+            serverDataDay.date < checkOut;
 
           let selected;
           if (isSelected) {
@@ -107,14 +135,35 @@ class CalendarGrid extends React.Component {
 
           if (serverDataDay.available) {
             day = (
-              <td className={`${styles.calendarDay} ${styles.available}`} key={x + (i * 6)}>
-                <button type="button" onClick={onClick} date={serverDataDay.date} id={serverDataDay.id} className={selected}>{serverDataPointer + 1}</button>
+              <td
+                className={`${styles.calendarDay} ${styles.available}`}
+                key={x + i * 6}
+              >
+                <button
+                  type="button"
+                  onClick={onClick}
+                  date={serverDataDay.date}
+                  id={serverDataDay.id}
+                  className={selected}
+                >
+                  {serverDataPointer + 1}
+                </button>
               </td>
             );
           } else {
             day = (
-              <td className={`${styles.calendarDay} ${styles.unavailable}`} key={x + (i * 6)}>
-                <button type="button" date={serverDataDay.date} id={serverDataDay.id} disabled>{serverDataPointer + 1}</button>
+              <td
+                className={`${styles.calendarDay} ${styles.unavailable}`}
+                key={x + i * 6}
+              >
+                <button
+                  type="button"
+                  date={serverDataDay.date}
+                  id={serverDataDay.id}
+                  disabled
+                >
+                  {serverDataPointer + 1}
+                </button>
               </td>
             );
           }
@@ -123,7 +172,11 @@ class CalendarGrid extends React.Component {
         days.push(day);
       }
 
-      const week = (<tr className={styles.calendarWeek} key={i}>{days}</tr>);
+      const week = (
+        <tr className={styles.calendarWeek} key={i}>
+          {days}
+        </tr>
+      );
 
       weeks.push(week);
     }
@@ -148,23 +201,15 @@ class CalendarGrid extends React.Component {
 
     const currentMonth = (
       <table id={styles.calendarCore}>
-        <thead>
-          {calendarHead}
-        </thead>
-        <tbody>
-          {this.months[currentMonthIndex]}
-        </tbody>
+        <thead>{calendarHead}</thead>
+        <tbody>{this.months[currentMonthIndex]}</tbody>
       </table>
     );
 
     const nextMonth = (
       <table id={styles.calendarCore}>
-        <thead>
-          {calendarHead}
-        </thead>
-        <tbody>
-          {this.months[nextMonthIndex]}
-        </tbody>
+        <thead>{calendarHead}</thead>
+        <tbody>{this.months[nextMonthIndex]}</tbody>
       </table>
     );
 
@@ -173,21 +218,27 @@ class CalendarGrid extends React.Component {
         <div id={styles.dateScroller}>
           <div id="currentMonth" className={styles.month}>
             <div id={styles.scrollLeft} className={styles.scroll}>
-              <button type="button" onClick={() => { this.clickScroll('<'); }}>
+              <button
+                type="button"
+                onClick={() => {
+                  this.clickScroll('<');
+                }}
+              >
                 {'<'}
               </button>
-              <p>
-                {validMonths[currentMonthIndex]}
-              </p>
+              <p>{validMonths[currentMonthIndex]}</p>
             </div>
             {currentMonth}
           </div>
           <div id="nextMonth" className={styles.month}>
             <div id={styles.scrollRight} className={styles.scroll}>
-              <p>
-                {validMonths[nextMonthIndex]}
-              </p>
-              <button type="button" onClick={() => { this.clickScroll('>'); }}>
+              <p>{validMonths[nextMonthIndex]}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  this.clickScroll('>');
+                }}
+              >
                 {'>'}
               </button>
             </div>

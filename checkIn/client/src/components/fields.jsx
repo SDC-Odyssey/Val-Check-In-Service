@@ -3,14 +3,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Fields.css';
+import styles from './fields.css';
 import GuestForm from './GuestForm';
 import CalendarContainer from './CalendarContainer';
-import Pricings from './Pricings';
+import Pricings from './pricings';
 
 const dateDiff = function dateDifference(laterDateString, earlierDateString) {
-  const differenceInMilliseconds = Date.parse(laterDateString) - Date.parse(earlierDateString);
-  const differenceInDays = Math.round(differenceInMilliseconds / (24 * 3600 * 1000));
+  const differenceInMilliseconds =
+    Date.parse(laterDateString) - Date.parse(earlierDateString);
+  const differenceInDays = Math.round(
+    differenceInMilliseconds / (24 * 3600 * 1000)
+  );
   return differenceInDays;
 };
 
@@ -64,12 +67,20 @@ class Fields extends React.Component {
           checkIn: targetDate,
           nights: dateDiff(checkOut, targetDate),
         });
-      } else if (isCheckInPopulated && !isCheckOutPopulated && isTargetDateAfterCheckIn) {
+      } else if (
+        isCheckInPopulated &&
+        !isCheckOutPopulated &&
+        isTargetDateAfterCheckIn
+      ) {
         this.setState({
           checkOut: targetDate,
           nights: dateDiff(targetDate, checkIn),
         });
-      } else if (isCheckInPopulated && !isCheckOutPopulated && !isTargetDateAfterCheckIn) {
+      } else if (
+        isCheckInPopulated &&
+        !isCheckOutPopulated &&
+        !isTargetDateAfterCheckIn
+      ) {
         this.setState({
           checkIn: targetDate,
           checkOut: 'Add date',
@@ -173,7 +184,12 @@ class Fields extends React.Component {
 
     let guestForm;
     if (displayGuestForm) {
-      guestForm = <GuestForm guests={{ adults, children, infants }} onClick={this.onClick} />;
+      guestForm = (
+        <GuestForm
+          guests={{ adults, children, infants }}
+          onClick={this.onClick}
+        />
+      );
     } else {
       guestForm = '';
     }
@@ -206,7 +222,13 @@ class Fields extends React.Component {
     } else {
       reserveButton = (
         <div id={styles.buttonWrapper}>
-          <button type="button" id={styles.reserveButton} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }}>
+          <button
+            type="button"
+            id={styles.reserveButton}
+            onClick={(event) => {
+              this.onClick(event, 'toggleCalendar');
+            }}
+          >
             Check Availability
           </button>
         </div>
@@ -219,15 +241,39 @@ class Fields extends React.Component {
       <div>
         <div id={styles.fieldGrid}>
           {/* <form> */}
-          <div id={styles.checkIn} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }} role="button" tabIndex={0}>
+          <div
+            id={styles.checkIn}
+            className={styles.fields}
+            onClick={(event) => {
+              this.onClick(event, 'toggleCalendar');
+            }}
+            role="button"
+            tabIndex={0}
+          >
             <p className={styles.label}>CHECK-IN</p>
             <p className={styles.subText}>{checkIn}</p>
           </div>
-          <div id={styles.checkOut} className={styles.fields} onClick={(event) => { this.onClick(event, 'toggleCalendar'); }} role="button" tabIndex={0}>
+          <div
+            id={styles.checkOut}
+            className={styles.fields}
+            onClick={(event) => {
+              this.onClick(event, 'toggleCalendar');
+            }}
+            role="button"
+            tabIndex={0}
+          >
             <p className={styles.label}>CHECKOUT</p>
             <p className={styles.subText}>{checkOut}</p>
           </div>
-          <div id={styles.guests} className={styles.fields} onClick={(event) => { this.onClick(event, 'guest'); }} role="button" tabIndex={0}>
+          <div
+            id={styles.guests}
+            className={styles.fields}
+            onClick={(event) => {
+              this.onClick(event, 'guest');
+            }}
+            role="button"
+            tabIndex={0}
+          >
             <p className={styles.label}>GUESTS</p>
             <p className={styles.subText}>
               {guestDisplay}
