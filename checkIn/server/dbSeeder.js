@@ -11,17 +11,15 @@ const {
   generateAvailability,
 } = require('./generateRandomData');
 
-const password = 'Richi53!';
-
 const init = async function initializeNewDatabase() {
-  const newConnection = new Sequelize('', 'root', password, {
+  const newConnection = new Sequelize('', 'root', 'password', {
     host: 'localhost',
     dialect: 'mysql',
   });
   await newConnection.query('CREATE DATABASE IF NOT EXISTS check_in;');
   await newConnection.close();
 
-  const sequelize = new Sequelize('check_in', 'root', password, {
+  const sequelize = new Sequelize('check_in', 'root', 'password', {
     host: 'localhost',
     dialect: 'mysql',
   });
