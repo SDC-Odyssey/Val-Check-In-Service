@@ -6,7 +6,7 @@ const {
   BOOLEAN,
 } = require('sequelize');
 
-const sequelize = new Sequelize('check_in', 'root', 'password', {
+const sequelize = new Sequelize('check_in', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
 });
