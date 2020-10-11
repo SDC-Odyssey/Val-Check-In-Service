@@ -9,7 +9,7 @@ const {
 const {
   generatePricing,
   generateAvailability,
-} = require('./generateRandomData');
+} = require('./generateRandomData.js');
 
 const init = async function initializeNewDatabase() {
   const newConnection = new Sequelize('', 'root', '', {
@@ -95,8 +95,8 @@ const init = async function initializeNewDatabase() {
 
   try {
     await queryInterface.bulkInsert('availabilities', newAvailabilityData);
-  } catch {
-    console.log('insertion into availability table failed');
+  } catch (err) {
+    console.log('insertion into availability table failed', err);
   }
 };
 

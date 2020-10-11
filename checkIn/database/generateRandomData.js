@@ -47,4 +47,3 @@ exports.generateAvailability = function createAvailabilityDates() {
   }
   return newRecords;
 };
-
