@@ -20,6 +20,7 @@ const init = async function initializeApp() {
   let pricingInformation;
   try {
     pricingInformation = await axios.get(`${localhost}:3003/pricing/${id}`);
+    console.log(pricingInformation.data);
   } catch {
     console.log('Could not retrieve pricing information from the server');
   }
@@ -29,7 +30,6 @@ const init = async function initializeApp() {
     availabilityInformation = await axios.get(
       `${localhost}:3003/availability/${id}`
     );
-    console.log('index.jsx -->', availabilityInformation.data);
   } catch {
     console.log('Could not retrieve availability information from the server');
   }
