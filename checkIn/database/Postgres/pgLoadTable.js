@@ -14,7 +14,7 @@ pool.on('error', (err, client) => {
 
 const query = `DROP TABLE IF EXISTS checkin.availability;
 CREATE TABLE checkin.availability(
-  id SERIAL PRIMARY KEY,
+  id SERIAL,
   date TEXT,
   room_id INT,
   available BOOLEAN
