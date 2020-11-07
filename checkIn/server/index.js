@@ -1,122 +1,66 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require("body-parser");
+const port = 3003;
 const cors = require('cors');
-const {
-  Pricing,
-  Availability,
-} = require('../database/db');
-
+const { Pool } = require('pg');
 const app = express();
 
 app.use(cors());
-
-app.listen('3003', () => {
-  console.log('Server is listening at port 3003.');
-});
 app.use(express.json());
-
 app.use(express.static(path.join(__dirname, '..', 'client/public'), {
   index: 'index.html',
 }));
 
-app.get('/pricing/:room_id', async (req, res) => {
-  const id = req.params.room_id;
-  try {
-    const pricingDataObject = await Pricing.findOne({
-      where: {
-        id,
-      },
-      raw: true,
+const pool = new Pool({
+  host: "localhost",
+  user: "postgres",
+  database: "testdb",
+  password: "student",
+  port: 5432
+});
+// GET ALL
+app.get('/availability', (req, res) => {
+  const query = 'SELECT COUNT(*) FROM checkin.availability';
+  pool.query(query)
+    .then((data) => {
+      console.log('Successfully got all data from database');
+      res.send(data);
+    })
+    .catch(err => {
+      console.error('Error: ', err);
     });
-    const pricing = JSON.stringify(pricingDataObject);
-
-    res.status(200);
-    res.send(pricing);
-    res.end();
-  } catch {
-    console.log('Issue with retrieving pricing information from the database');
-    res.sendStatus(404);
-    res.end();
-  }
 });
 
-// create
-app.post('/availability', async (req, res) => {
-  const newRoom = {
-    id: req.body.id,
-    date: req.body.date,
-    room_id: req.body.room_id,
-    available: req.body.available,
-  };
-  console.log('newRoom from server', newRoom);
-  try {
-    const availabilityDataObject = await Availability.create(newRoom);
-    res.status(202);
-    res.json(availabilityDataObject);
-  } catch (err) {
-    console.log('Issue with retrieving room availability from database', err);
-    res.sendStatus(404);
-    res.end();
-  }
-});
-
-// read
-app.get('/availability/:room_id', async (req, res) => {
+// READ
+app.get('/availability/:room_id', (req, res) => {
   const id = req.params.room_id;
-  try {
-    const availabilityDataObject = await Availability.findAll({
-      where: {
-        room_id: id,
-      },
-      order: [
-        ['date', 'ASC'],
-      ],
-      raw: true,
+  const query = `SELECT * FROM checkin.availability WHERE room_id=${id}`;
+  pool.query(query)
+    .then((data) => {
+      console.log('Got data by ID --->', data);
+      res.send(data[0]);
+    })
+    .catch(err => {
+      res.status(500).send();
+      console.error('Error: ', err);
     });
-    const availability = JSON.stringify(availabilityDataObject);
-
-    res.status(200);
-    res.send(availability);
-  } catch {
-    console.log('Issue with retrieving room availability from database');
-    res.sendStatus(404);
-    res.end();
-  }
-});
-// update
-app.put('/availability/:room_id', async (req, res) => {
-  const id = req.params.room_id;
-  const updateRoom = { available: req.body.available };
-  try {
-    const availabilityDataObject = await Availability.update(
-      updateRoom,
-      {
-        where: {
-          room_id: id,
-        },
-      });
-    res.status(202);
-    res.json(availabilityDataObject);
-  } catch (err) {
-    console.log('Issue with retrieving room availability from database', err);
-    res.sendStatus(404);
-    res.end();
-  }
 });
 
 // delete
-app.delete('/availability/:room_id', async (req, res) => {
-  const id = req.params.room_id;
-  try {
-    const availabilityDataObject = await Availability.destroy(
-      { where: { room_id: id } },
-    );
-    res.status(202);
-    res.json(availabilityDataObject);
-  } catch (err) {
-    console.log('Issue with retrieving room availability from database', err);
-    res.sendStatus(404);
-    res.end();
-  }
+app.delete('/availability/:room_id', (req, res) => {
+  const id = parseInt(req.params.room_id);
+  const query = `DELETE FROM checkin.availability WHERE room_id=${id}`
+  pool.query(query)
+    .then((data) => {
+      console.log(`Successfully removed ${data}`);
+      res.status(200).send();
+    })
+    .catch(err => {
+      console.error('Error: ', err);
+      res.status(500).send();
+    });
+});
+
+app.listen('3003', () => {
+  console.log(`Server is listening at http://localhost:${port}`);
 });
