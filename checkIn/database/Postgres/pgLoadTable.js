@@ -12,7 +12,18 @@ pool.on('error', (err, client) => {
   console.error('Error:', err);
 });
 
-const query = `DROP TABLE IF EXISTS checkin.availability;
+const query = `
+DROP TABLE IF EXISTS checkin.availability;
+DROP TABLE IF EXISTS checkin.pricing;
+CREATE TABLE checkin.pricing(
+  id SERIAL,
+  base_price INT,
+  cleaning_fee NUMERIC(18, 2),
+  occupancy_fee NUMERIC(18, 2),
+  cost_additional_person NUMERIC(18, 2),
+  service_fee NUMERIC,
+  minimum_nights INT
+);
 CREATE TABLE checkin.availability(
   id SERIAL,
   date TEXT,

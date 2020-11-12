@@ -1,7 +1,7 @@
 sudo -i -u postgres
 
 You can now access a Postgres prompt immediately by typing:
-psql or sudo -u postgres psql
+psql or sudo -u postgres psql testdb
 
 Exit out of the PostgreSQL prompt by typing:
 \q
