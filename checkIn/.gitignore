@@ -3,3 +3,4 @@ scratch
 /server/mySqlPassword.js
 /database/DATABASE.md
 /database/availabilities-table.csv
+newrelic.js
