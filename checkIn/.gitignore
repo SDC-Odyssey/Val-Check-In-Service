@@ -4,3 +4,4 @@ scratch
 /database/DATABASE.md
 /database/availabilities-table.csv
 newrelic.js
+.env

@@ -15,3 +15,5 @@ You must specify the database to use on connect; if you want to use psql for you
 Use the \dt or \dt+ command in psql to show tables in a specific database.
 
 inally, issue the command \d table_name or \d+ table_name to describe a table
+
+psql -h localhost -p 5432 -U postgres -d testdb

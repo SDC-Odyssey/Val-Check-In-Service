@@ -1,4 +1,5 @@
 require('newrelic');
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const port = 3003;
@@ -13,11 +14,12 @@ app.use(express.static(path.join(__dirname, '..', 'client/public'), {
 }));
 
 const pool = new Pool({
-  host: "localhost",
-  user: "postgres",
-  database: "testdb",
-  password: "student",
-  port: 5432
+  // host: "localhost",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT
 });
 
 app.get('/pricing/:id', (req, res) => {
