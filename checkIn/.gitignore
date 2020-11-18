@@ -2,3 +2,6 @@ scratch
 /node_modules
 /server/mySqlPassword.js
 /database/DATABASE.md
+/database/availabilities-table.csv
+newrelic.js
+.env

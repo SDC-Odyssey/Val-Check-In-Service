@@ -1,122 +1,125 @@
+require('newrelic');
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
-const bodyParser = require("body-parser");
+const port = 3003;
 const cors = require('cors');
-const {
-  Pricing,
-  Availability,
-} = require('../database/db');
-
+const { Pool } = require('pg');
 const app = express();
 
 app.use(cors());
-
-app.listen('3003', () => {
-  console.log('Server is listening at port 3003.');
-});
 app.use(express.json());
-
 app.use(express.static(path.join(__dirname, '..', 'client/public'), {
   index: 'index.html',
 }));
 
-app.get('/pricing/:room_id', async (req, res) => {
-  const id = req.params.room_id;
-  try {
-    const pricingDataObject = await Pricing.findOne({
-      where: {
-        id,
-      },
-      raw: true,
-    });
-    const pricing = JSON.stringify(pricingDataObject);
-
-    res.status(200);
-    res.send(pricing);
-    res.end();
-  } catch {
-    console.log('Issue with retrieving pricing information from the database');
-    res.sendStatus(404);
-    res.end();
-  }
+const pool = new Pool({
+  // host: "localhost",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT
 });
 
-// create
-app.post('/availability', async (req, res) => {
-  const newRoom = {
-    id: req.body.id,
-    date: req.body.date,
-    room_id: req.body.room_id,
-    available: req.body.available,
+app.get('/pricing/:id', (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT * FROM checkin.pricing WHERE id=${id};`;
+  pool.query(query)
+    .then((data) => {
+      console.log('Got data by ID --->', data);
+      res.send(data.rows);
+    })
+    .catch(err => {
+      res.status(500).send();
+      console.error('Error: ', err);
+    });
+});
+
+// GET ALL
+app.get('/availability', (req, res) => {
+  const query = 'SELECT COUNT(*) FROM checkin.availability;';
+  pool.query(query)
+    .then((data) => {
+      console.log('Successfully got all data from database');
+      res.send(data);
+    })
+    .catch(err => {
+      console.error('Error: ', err);
+    });
+});
+
+
+// READ
+app.get('/availability/:room_id', (req, res) => {
+  const id = req.params.room_id;
+  const query = `SELECT * FROM checkin.availability WHERE room_id=${id};`;
+  pool.query(query)
+    .then((data) => {
+      console.log('Got data by ID --->', data);
+      res.send(data.rows);
+    })
+    .catch(err => {
+      res.status(500).send();
+      console.error('Error: ', err);
+    });
+});
+
+// POST
+app.post('/availability/', (req, res) => {
+  const { date, room_id, available } = req.body;
+  const data = {
+    date: date,
+    room_id: room_id,
+    available: available
   };
-  console.log('newRoom from server', newRoom);
-  try {
-    const availabilityDataObject = await Availability.create(newRoom);
-    res.status(202);
-    res.json(availabilityDataObject);
-  } catch (err) {
-    console.log('Issue with retrieving room availability from database', err);
-    res.sendStatus(404);
-    res.end();
-  }
-});
-
-// read
-app.get('/availability/:room_id', async (req, res) => {
-  const id = req.params.room_id;
-  try {
-    const availabilityDataObject = await Availability.findAll({
-      where: {
-        room_id: id,
-      },
-      order: [
-        ['date', 'ASC'],
-      ],
-      raw: true,
+  const values = [
+    data.date,
+    data.room_id,
+    data.available,
+  ];
+  const query = `INSERT INTO checkin.availability (date, room_id, available) VALUES($1, $2, $3); `;
+  pool.query(query, values)
+    .then((data) => {
+      console.log('Successfully created', data);
+      res.send();
+    })
+    .catch(err => {
+      res.status(500).send();
+      console.error('Creating error: ', err);
     });
-    const availability = JSON.stringify(availabilityDataObject);
-
-    res.status(200);
-    res.send(availability);
-  } catch {
-    console.log('Issue with retrieving room availability from database');
-    res.sendStatus(404);
-    res.end();
-  }
 });
-// update
-app.put('/availability/:room_id', async (req, res) => {
+
+app.put('/availability/:room_id', (req, res) => {
   const id = req.params.room_id;
-  const updateRoom = { available: req.body.available };
-  try {
-    const availabilityDataObject = await Availability.update(
-      updateRoom,
-      {
-        where: {
-          room_id: id,
-        },
-      });
-    res.status(202);
-    res.json(availabilityDataObject);
-  } catch (err) {
-    console.log('Issue with retrieving room availability from database', err);
-    res.sendStatus(404);
-    res.end();
-  }
+  const { room_id, available } = req.body;
+  const query = `UPDATE checkin.availability SET room_id = ${room_id}, available = ${available} WHERE id=${id}`;
+  pool.query(query)
+    .then((data) => {
+      console.log('Successfully created', data);
+      res.send();
+    })
+    .catch(err => {
+      res.status(500).send();
+      console.error('Creating error: ', err);
+    });
 });
 
 // delete
-app.delete('/availability/:room_id', async (req, res) => {
-  const id = req.params.room_id;
-  try {
-    const availabilityDataObject = await Availability.destroy(
-      { where: { room_id: id } },
-    );
-    res.status(202);
-    res.json(availabilityDataObject);
-  } catch (err) {
-    console.log('Issue with retrieving room availability from database', err);
-    res.sendStatus(404);
-    res.end();
-  }
+app.delete('/availability/:room_id', (req, res) => {
+  const id = parseInt(req.params.room_id);
+  const query = `DELETE FROM checkin.availability WHERE room_id = ${id}; `;
+  pool.query(query)
+    .then((data) => {
+      console.log(`Successfully removed ${data} `);
+      res.status(200).send();
+    })
+    .catch(err => {
+      console.error('Error: ', err);
+      res.status(500).send();
+    });
+});
+
+app.listen('3003', () => {
+  console.log(`Server is listening at http://localhost:${port}`);
 });
