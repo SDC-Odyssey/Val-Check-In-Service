@@ -9,7 +9,7 @@ import CheckIn from './components/CheckIn';
 
 // const localhost = 'http://127.0.0.1';
 const proxyAWSAddress =
-  'http://ec2-3-137-167-31.us-east-2.compute.amazonaws.com/';
+  'http://ec2-3-137-167-31.us-east-2.compute.amazonaws.com';
 
 const init = async function initializeApp() {
   const url = new URL(window.location);

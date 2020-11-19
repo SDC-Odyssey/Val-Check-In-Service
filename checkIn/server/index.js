@@ -27,7 +27,7 @@ app.get('/pricing/:id', (req, res) => {
   const query = `SELECT * FROM checkin.pricing WHERE id=${id};`;
   pool.query(query)
     .then((data) => {
-      console.log('Got data by ID --->', data);
+      // console.log('Got data by ID --->', data);
       res.send(data.rows);
     })
     .catch(err => {
