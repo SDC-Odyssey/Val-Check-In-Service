@@ -6,7 +6,6 @@ import axios from 'axios';
 import CheckIn from './components/CheckIn';
 
 // const proxyAWSAddress = 'http://52.42.95.134';
-
 // const localhost = 'http://127.0.0.1';
 const proxyAWSAddress =
   'http://ec2-3-137-167-31.us-east-2.compute.amazonaws.com';
