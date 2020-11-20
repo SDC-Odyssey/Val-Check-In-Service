@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+require('dotenv').config('../../.env');
 
 const pool = new Pool({
   // host: 'localhost',
@@ -12,6 +13,7 @@ const pool = new Pool({
 pool.on('error', (err, client) => {
   console.error('Error:', err);
 });
+console.log('pool', process.env.DB_HOST);
 
 const query = `
 DROP TABLE IF EXISTS checkin.availability;

@@ -1,4 +1,5 @@
 var { Pool } = require('pg')
+require('dotenv').config('../../.env');
 
 // create a new connection pool to the database
 const pool = new Pool({
@@ -12,7 +13,7 @@ const pool = new Pool({
 // Availability
 const query = `\COPY checkin.availability (id,date,room_id,available) FROM '/home/valeriia/rpt22/SDC/Check-In-Service/checkIn/database/availabilities-table.csv' WITH DELIMITER ',' CSV HEADER`;
 //Pricing
-// const query = `COPY checkin.pricing (id,base_price,cleaning_fee,occupancy_fee,cost_additional_person,service_fee,minimum_nights) FROM '/home/valeriia/rpt22/SDC/Check-In-Service/checkIn/database/pricing-table.csv' WITH DELIMITER ',' CSV HEADER`;
+// const query = `\COPY checkin.pricing (id,base_price,cleaning_fee,occupancy_fee,cost_additional_person,service_fee,minimum_nights) FROM '/home/valeriia/rpt22/SDC/Check-In-Service/checkIn/database/pricing-table.csv' WITH DELIMITER ',' CSV HEADER`;
 
 pool.connect()
   .then((client) => {
