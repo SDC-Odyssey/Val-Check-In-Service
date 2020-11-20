@@ -21,7 +21,10 @@ const init = async function initializeApp() {
 
   let pricingInformation;
   try {
-    pricingInformation = await axios.get(`${proxyAWSAddress}/pricing/${id}`);
+    pricingInformation = await axios.get(
+      `${proxyAWSAddress}/pricing/${id}`
+      // `${localhost}:3003/pricing/${id}`
+    );
     console.log(pricingInformation.data);
   } catch {
     console.log('Could not retrieve pricing information from the server');
@@ -31,6 +34,7 @@ const init = async function initializeApp() {
   try {
     availabilityInformation = await axios.get(
       `${proxyAWSAddress}/availability/${id}`
+      // `${localhost}:3003/availability/${id}`
     );
   } catch {
     console.log('Could not retrieve availability information from the server');

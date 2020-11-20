@@ -1,5 +1,6 @@
 require('newrelic');
-require('dotenv').config()
+// require('dotenv').config()
+require('dotenv').config('../../.env');
 const express = require('express');
 const path = require('path');
 const port = 3003;
@@ -51,9 +52,9 @@ app.get('/availability', (req, res) => {
 
 
 // READ
-app.get('/availability/:room_id', (req, res) => {
-  const id = req.params.room_id;
-  const query = `SELECT * FROM checkin.availability WHERE room_id=${id};`;
+app.get('/availability/:id', (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT * FROM checkin.availability WHERE id=${id};`;
   pool.query(query)
     .then((data) => {
       console.log('Got data by ID --->', data);
@@ -65,33 +66,8 @@ app.get('/availability/:room_id', (req, res) => {
     });
 });
 
-// POST
-app.post('/availability/', (req, res) => {
-  const { date, room_id, available } = req.body;
-  const data = {
-    date: date,
-    room_id: room_id,
-    available: available
-  };
-  const values = [
-    data.date,
-    data.room_id,
-    data.available,
-  ];
-  const query = `INSERT INTO checkin.availability (date, room_id, available) VALUES($1, $2, $3); `;
-  pool.query(query, values)
-    .then((data) => {
-      console.log('Successfully created', data);
-      res.send();
-    })
-    .catch(err => {
-      res.status(500).send();
-      console.error('Creating error: ', err);
-    });
-});
-
-app.put('/availability/:room_id', (req, res) => {
-  const id = req.params.room_id;
+app.put('/availability/:id', (req, res) => {
+  const id = req.params.id;
   const { room_id, available } = req.body;
   const query = `UPDATE checkin.availability SET room_id = ${room_id}, available = ${available} WHERE id=${id}`;
   pool.query(query)
@@ -105,9 +81,10 @@ app.put('/availability/:room_id', (req, res) => {
     });
 });
 
+
 // delete
-app.delete('/availability/:room_id', (req, res) => {
-  const id = parseInt(req.params.room_id);
+app.delete('/availability/:id', (req, res) => {
+  const id = parseInt(req.params.id);
   const query = `DELETE FROM checkin.availability WHERE room_id = ${id}; `;
   pool.query(query)
     .then((data) => {
@@ -123,3 +100,43 @@ app.delete('/availability/:room_id', (req, res) => {
 app.listen('3003', () => {
   console.log(`Server is listening at http://localhost:${port}`);
 });
+
+// POST
+// app.post('/availability/', (req, res) => {
+//   const { date, room_id, available } = req.body;
+//   const data = {
+//     date: date,
+//     room_id: room_id,
+//     available: available
+//   };
+//   const values = [
+//     data.date,
+//     data.room_id,
+//     data.available,
+//   ];
+//   const query = `INSERT INTO checkin.availability (date, room_id, available) VALUES($1, $2, $3); `;
+//   pool.query(query, values)
+//     .then((data) => {
+//       console.log('Successfully created', data);
+//       res.send();
+//     })
+//     .catch(err => {
+//       res.status(500).send();
+//       console.error('Creating error: ', err);
+//     });
+// });
+
+// app.put('/availability/:room_id', (req, res) => {
+//   const id = req.params.room_id;
+//   const { room_id, available } = req.body;
+//   const query = `UPDATE checkin.availability SET room_id = ${room_id}, available = ${available} WHERE id=${id}`;
+//   pool.query(query)
+//     .then((data) => {
+//       console.log('Successfully created', data);
+//       res.send();
+//     })
+//     .catch(err => {
+//       res.status(500).send();
+//       console.error('Creating error: ', err);
+//     });
+// });
