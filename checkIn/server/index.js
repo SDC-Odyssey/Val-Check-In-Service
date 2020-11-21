@@ -73,7 +73,8 @@ app.put('/availability/:id', (req, res) => {
   pool.query(query)
     .then((data) => {
       console.log('Successfully created', data);
-      res.send();
+      // res.send();
+      res.sendStatus(200);
     })
     .catch(err => {
       res.status(500).send();
