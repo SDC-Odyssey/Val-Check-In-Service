@@ -32,7 +32,8 @@ CREATE TABLE checkin.availability(
   date TEXT,
   room_id INT,
   available BOOLEAN
-);`;
+);
+CREATE INDEX id_idx ON availability (id);`;
 
 pool.connect()
   .then((client) => {
