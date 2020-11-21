@@ -69,16 +69,17 @@ app.get('/availability/:id', (req, res) => {
   const id = req.params.id;
   client.get(id, (err, value) => {
     if (err) throw err;
-    if (value) {
-      client.setex(id, 24 * 60 * 60 * 5, value, function (err, result) {
-        if (err) throw err;
-      })
+    if (value !== null) {
+      console.log('works');
       res.send(value);
     } else {
       const query = `SELECT * FROM checkin.availability WHERE id=${id};`;
       pool.query(query)
         .then((data) => {
           console.log('Got data by ID --->', data);
+          client.setex(id, 24 * 60 * 60 * 5, JSON.stringify(data.rows), function (err, result) {
+            if (err) throw err;
+          })
           res.send(data.rows);
         })
         .catch(err => {
