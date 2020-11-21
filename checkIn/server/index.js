@@ -67,9 +67,9 @@ app.get('/availability/:id', (req, res) => {
 });
 
 app.put('/availability/:id', (req, res) => {
-  const id = req.params.id;
+  const tableId = req.params.id;
   const { room_id, available } = req.body;
-  const query = `UPDATE checkin.availability SET room_id = ${room_id}, available = ${available} WHERE id=${id}`;
+  const query = `UPDATE checkin.availability SET room_id = ${room_id}, available = ${available} WHERE id=${tableId}`;
   pool.query(query)
     .then((data) => {
       console.log('Successfully created', data);
