@@ -5,6 +5,11 @@ const express = require('express');
 const path = require('path');
 const port = 3003;
 const cors = require('cors');
+
+const redis = require('redis');
+const configRedis = require('./redis.config.js');
+const client = redis.createClient(configRedis);
+
 const { Pool } = require('pg');
 const app = express();
 
@@ -21,6 +26,14 @@ const pool = new Pool({
   database: process.env.DB_DATABASE,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT
+});
+
+client.on('connect', function () {
+  console.log('Redis client connected');
+});
+
+client.on('error', function (err) {
+  console.log('Something went wrong ' + err);
 });
 
 app.get('/pricing/:id', (req, res) => {
@@ -54,16 +67,26 @@ app.get('/availability', (req, res) => {
 // READ
 app.get('/availability/:id', (req, res) => {
   const id = req.params.id;
-  const query = `SELECT * FROM checkin.availability WHERE id=${id};`;
-  pool.query(query)
-    .then((data) => {
-      console.log('Got data by ID --->', data);
-      res.send(data.rows);
-    })
-    .catch(err => {
-      res.status(500).send();
-      console.error('Error: ', err);
-    });
+  client.get(id, (err, value) => {
+    if (err) throw err;
+    if (value) {
+      client.setex(id, 24 * 60 * 60 * 5, value, function (err, result) {
+        if (err) throw err;
+      })
+      res.send(value);
+    } else {
+      const query = `SELECT * FROM checkin.availability WHERE id=${id};`;
+      pool.query(query)
+        .then((data) => {
+          console.log('Got data by ID --->', data);
+          res.send(data.rows);
+        })
+        .catch(err => {
+          res.status(500).send();
+          console.error('Error: ', err);
+        });
+    }
+  });
 });
 
 app.put('/availability/:id', (req, res) => {
