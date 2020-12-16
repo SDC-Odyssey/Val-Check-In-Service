@@ -7,7 +7,7 @@ import CheckIn from './components/CheckIn';
 
 // const proxyAWSAddress = 'http://52.42.95.134';
 // const localhost = 'http://127.0.0.1';
-const awsAddress = 'http://ec2-3-137-167-31.us-east-2.compute.amazonaws.com';
+const ec2Service = 'http://ec2-3-17-173-179.us-east-2.compute.amazonaws.com';
 
 const init = async function initializeApp() {
   const url = new URL(window.location);
@@ -21,7 +21,7 @@ const init = async function initializeApp() {
   let pricingInformation;
   try {
     pricingInformation = await axios.get(
-      `${awsAddress}/pricing/${id}`
+      `${ec2Service}/pricing/${id}`
       // `${localhost}:3003/pricing/${id}`
     );
     console.log(pricingInformation.data);
@@ -32,7 +32,7 @@ const init = async function initializeApp() {
   let availabilityInformation;
   try {
     availabilityInformation = await axios.get(
-      `${awsAddress}/availability/${id}`
+      `${ec2Service}/availability/${id}`
       // `${localhost}:3003/availability/${id}`
     );
   } catch {

@@ -22,10 +22,8 @@ const pool = new Pool({
   user: process.env.DB_USER,
   database: process.env.DB_DATABASE,
   password: process.env.DB_PASS,
-  port: process.env.DB_PORT
+  port: process.env.DB_PORT,
 });
-
-
 
 app.get('/pricing/:id', (req, res) => {
   const id = req.params.id;
@@ -53,7 +51,6 @@ app.get('/availability', (req, res) => {
       console.error('Error: ', err);
     });
 });
-
 
 // READ
 app.get('/availability/:id', (req, res) => {
@@ -86,7 +83,6 @@ app.put('/availability/:id', (req, res) => {
       console.error('Creating error: ', err);
     });
 });
-
 
 // delete
 app.delete('/availability/:id', (req, res) => {
